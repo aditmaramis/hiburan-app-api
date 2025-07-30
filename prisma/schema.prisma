@@ -4,22 +4,167 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
-}
+// Prisma schema for hiburan-app-web, connected to Supabase
+// Please update the provider and url in the datasource block as needed
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-model Sample {
-  id        Int      @id @default(autoincrement())
-  name      String
-  code      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+generator client {
+  provider = "prisma-client-js"
+}
 
-  @@map("samples") // if you want to use snake_case format
+model users {
+  id              Int      @id @default(autoincrement())
+  name            String?
+  email           String   @unique
+  password        String
+  role            String
+  profile_picture String?
+  referral_code   String   @unique
+  referred_by_id  Int?
+  referred_by     users?  @relation("UserReferrals", fields: [referred_by_id], references: [id])
+  referred_users  users[] @relation("UserReferrals")
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  password_resets password_resets[]
+  events          events[] @relation("OrganizerEvents")
+  bookings        bookings[]
+  reviews         reviews[]
+  coupons         coupons[]
+  referral_points referral_points[] @relation("ReferrerPoints")
+  referral_points_referred referral_points[] @relation("ReferredUserPoints")
+  claimed_prizes  claimed_prizes[]
+}
+
+model password_resets {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  user       users    @relation(fields: [user_id], references: [id])
+  token      String   @unique
+  expires_at DateTime
+  created_at DateTime @default(now())
+}
+
+model events {
+  id           Int      @id @default(autoincrement())
+  title        String
+  description  String?
+  date         DateTime
+  organizer_id Int
+  organizer    users    @relation("OrganizerEvents", fields: [organizer_id], references: [id])
+  venue_id     Int
+  venue        venues   @relation(fields: [venue_id], references: [id])
+  category     String
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  tickets      tickets[]
+  bookings     bookings[]
+  reviews      reviews[]
+}
+
+model venues {
+  id          Int      @id @default(autoincrement())
+  name        String
+  address     String?
+  city        String
+  capacity    Int
+  contact_info String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  events      events[]
+}
+
+model tickets {
+  id         Int      @id @default(autoincrement())
+  event_id   Int
+  event      events   @relation(fields: [event_id], references: [id])
+  type       String
+  price      Decimal
+  quantity   Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  bookings   bookings[]
+}
+
+model bookings {
+  id          Int      @id @default(autoincrement())
+  user_id     Int
+  user        users    @relation(fields: [user_id], references: [id])
+  event_id    Int
+  event       events   @relation(fields: [event_id], references: [id])
+  ticket_id   Int
+  ticket      tickets  @relation(fields: [ticket_id], references: [id])
+  quantity    Int
+  total_price Decimal
+  booking_date DateTime
+  status      String
+  payments    payments[]
+}
+
+model payments {
+  id             Int      @id @default(autoincrement())
+  booking_id     Int
+  booking        bookings @relation(fields: [booking_id], references: [id])
+  amount         Decimal
+  payment_method String
+  payment_date   DateTime
+  status         String
+}
+
+model reviews {
+  id         Int      @id @default(autoincrement())
+  event_id   Int
+  event      events   @relation(fields: [event_id], references: [id])
+  user_id    Int
+  user       users    @relation(fields: [user_id], references: [id])
+  rating     Int
+  comment    String?
+  created_at DateTime @default(now())
+}
+
+model coupons {
+  id              Int      @id @default(autoincrement())
+  code            String   @unique
+  user_id         Int
+  user            users    @relation(fields: [user_id], references: [id])
+  discount_percent Int
+  issued_at       DateTime
+  expires_at      DateTime
+  is_used         Boolean  @default(false)
+  source          String?
+}
+
+model referral_points {
+  id               Int      @id @default(autoincrement())
+  user_id          Int
+  user             users    @relation("ReferrerPoints", fields: [user_id], references: [id])
+  points           Int
+  earned_at        DateTime
+  expires_at       DateTime
+  used             Boolean  @default(false)
+  referred_user_id Int
+  referred_user    users    @relation("ReferredUserPoints", fields: [referred_user_id], references: [id])
+}
+
+model prizes {
+  id             Int      @id @default(autoincrement())
+  name           String
+  description    String?
+  points_required Int
+  stock          Int
+  created_at     DateTime @default(now())
+  claimed_prizes claimed_prizes[]
+}
+
+model claimed_prizes {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  user       users    @relation(fields: [user_id], references: [id])
+  prize_id   Int
+  prize      prizes   @relation(fields: [prize_id], references: [id])
+  claimed_at DateTime
 }
