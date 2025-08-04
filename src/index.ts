@@ -1,8 +1,15 @@
-import App from './app';
+import express from 'express';
+import cors from 'cors';
+import eventRouter from './routers/event.router';
 
-const main = () => {
-  const app = new App();
-  app.start();
-};
+const app = express();
+const PORT = 3000;
 
-main();
+app.use(cors());
+app.use(express.json());
+
+app.use('/events', eventRouter); // base route
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});

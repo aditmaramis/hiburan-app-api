@@ -1,25 +1,162 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DIRECT_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-model Sample {
+model User {
+  id             Int      @id @default(autoincrement())
+  name           String
+  email          String   @unique
+  password       String
+  role           String // admin, organizer, customer
+  profilePicture String?
+  referralCode   String   @unique
+  referredBy     String?  @db.VarChar
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  events         Event[]         @relation("OrganizerEvents")
+  referralPoints ReferralPoint[] @relation("Referrer")
+  referredUsers  ReferralPoint[] @relation("Referred")
+  reviews        Review[]
+  bookings       Booking[]
+  coupons        Coupon[]
+  claimedPrizes  ClaimedPrize[]
+}
+
+model ReferralPoint {
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  points         Int
+  earnedAt       DateTime
+  expiresAt      DateTime
+  used           Boolean  @default(false)
+  referredUserId Int
+
+  // Relations
+  referrer User @relation("Referrer", fields: [userId], references: [id])
+  referred User @relation("Referred", fields: [referredUserId], references: [id])
+}
+
+model Venue {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  address     String
+  city        String
+  capacity    Int
+  contactInfo String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  events Event[]
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  date        DateTime
+  organizerId Int
+  venueId     Int
+  category    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  organizer User      @relation("OrganizerEvents", fields: [organizerId], references: [id])
+  venue     Venue     @relation(fields: [venueId], references: [id])
+  tickets   Ticket[]
+  reviews   Review[]
+  bookings  Booking[]
+}
+
+model Ticket {
   id        Int      @id @default(autoincrement())
-  name      String
-  code      String   @unique
+  eventId   Int
+  type      String
+  price     Decimal
+  quantity  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("samples") // if you want to use snake_case format
+  event    Event     @relation(fields: [eventId], references: [id])
+  bookings Booking[]
+}
+
+model Booking {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  eventId     Int
+  ticketId    Int
+  quantity    Int
+  totalPrice  Decimal
+  bookingDate DateTime @default(now())
+  status      String // confirmed, canceled
+
+  user    User     @relation(fields: [userId], references: [id])
+  event   Event    @relation(fields: [eventId], references: [id])
+  ticket  Ticket   @relation(fields: [ticketId], references: [id])
+  payment Payment?
+}
+
+model Payment {
+  id            Int      @id @default(autoincrement())
+  bookingId     Int      @unique
+  amount        Decimal
+  paymentMethod String // credit_card, etc.
+  paymentDate   DateTime
+  status        String // success, failed
+  booking       Booking  @relation(fields: [bookingId], references: [id])
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  eventId   Int
+  userId    Int
+  rating    Int // 1 to 5
+  comment   String
+  createdAt DateTime @default(now())
+
+  event Event @relation(fields: [eventId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+}
+
+model Coupon {
+  id              Int      @id @default(autoincrement())
+  code            String   @unique
+  userId          Int
+  discountPercent Int
+  issuedAt        DateTime
+  expiresAt       DateTime
+  isUsed          Boolean  @default(false)
+  source          String // e.g. referral
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Prize {
+  id             Int      @id @default(autoincrement())
+  name           String
+  description    String
+  pointsRequired Int
+  stock          Int
+  createdAt      DateTime @default(now())
+
+  claimedPrizes ClaimedPrize[]
+}
+
+model ClaimedPrize {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  prizeId   Int
+  claimedAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id])
+  prize Prize @relation(fields: [prizeId], references: [id])
 }
