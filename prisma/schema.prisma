@@ -4,17 +4,20 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-// Prisma schema for hiburan-app-web, connected to Supabase
-// Please update the provider and url in the datasource block as needed
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+enum Role {
+  customer
+  organizer
 }
 
 model users {
@@ -22,7 +25,7 @@ model users {
   name            String?
   email           String   @unique
   password        String
-  role            String
+  role            Role     @default(customer)
   profile_picture String?
   referral_code   String   @unique
   referred_by_id  Int?
