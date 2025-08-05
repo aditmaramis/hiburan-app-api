@@ -146,9 +146,14 @@ exports.Prisma.EventsScalarFieldEnum = {
   title: 'title',
   description: 'description',
   date: 'date',
-  organizer_id: 'organizer_id',
-  venue_id: 'venue_id',
+  time: 'time',
+  location: 'location',
+  price: 'price',
+  total_seats: 'total_seats',
+  available_seats: 'available_seats',
   category: 'category',
+  image: 'image',
+  organizer_id: 'organizer_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -166,7 +171,6 @@ exports.Prisma.VenuesScalarFieldEnum = {
 
 exports.Prisma.TicketsScalarFieldEnum = {
   id: 'id',
-  event_id: 'event_id',
   type: 'type',
   price: 'price',
   quantity: 'quantity',
@@ -178,7 +182,6 @@ exports.Prisma.BookingsScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
   event_id: 'event_id',
-  ticket_id: 'ticket_id',
   quantity: 'quantity',
   total_price: 'total_price',
   booking_date: 'booking_date',

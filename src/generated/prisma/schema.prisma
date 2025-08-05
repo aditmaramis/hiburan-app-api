@@ -53,20 +53,23 @@ model password_resets {
 }
 
 model events {
-  id           Int        @id @default(autoincrement())
-  title        String
-  description  String?
-  date         DateTime
-  organizer_id Int
-  organizer    users      @relation("OrganizerEvents", fields: [organizer_id], references: [id])
-  venue_id     Int
-  venue        venues     @relation(fields: [venue_id], references: [id])
-  category     String
-  created_at   DateTime   @default(now())
-  updated_at   DateTime   @updatedAt
-  tickets      tickets[]
-  bookings     bookings[]
-  reviews      reviews[]
+  id              Int        @id @default(autoincrement())
+  title           String
+  description     String?
+  date            DateTime
+  time            String
+  location        String
+  price           Decimal
+  total_seats     Int
+  available_seats Int
+  category        String
+  image           String?
+  organizer_id    Int
+  organizer       users      @relation("OrganizerEvents", fields: [organizer_id], references: [id])
+  created_at      DateTime   @default(now())
+  updated_at      DateTime   @updatedAt
+  bookings        bookings[]
+  reviews         reviews[]
 }
 
 model venues {
@@ -78,19 +81,15 @@ model venues {
   contact_info String?
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
-  events       events[]
 }
 
 model tickets {
-  id         Int        @id @default(autoincrement())
-  event_id   Int
-  event      events     @relation(fields: [event_id], references: [id])
+  id         Int      @id @default(autoincrement())
   type       String
   price      Decimal
   quantity   Int
-  created_at DateTime   @default(now())
-  updated_at DateTime   @updatedAt
-  bookings   bookings[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model bookings {
@@ -99,8 +98,6 @@ model bookings {
   user         users      @relation(fields: [user_id], references: [id])
   event_id     Int
   event        events     @relation(fields: [event_id], references: [id])
-  ticket_id    Int
-  ticket       tickets    @relation(fields: [ticket_id], references: [id])
   quantity     Int
   total_price  Decimal
   booking_date DateTime

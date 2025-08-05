@@ -1990,13 +1990,11 @@ export namespace Prisma {
    */
 
   export type EventsCountOutputType = {
-    tickets: number
     bookings: number
     reviews: number
   }
 
   export type EventsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tickets?: boolean | EventsCountOutputTypeCountTicketsArgs
     bookings?: boolean | EventsCountOutputTypeCountBookingsArgs
     reviews?: boolean | EventsCountOutputTypeCountReviewsArgs
   }
@@ -2015,13 +2013,6 @@ export namespace Prisma {
   /**
    * EventsCountOutputType without action
    */
-  export type EventsCountOutputTypeCountTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ticketsWhereInput
-  }
-
-  /**
-   * EventsCountOutputType without action
-   */
   export type EventsCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: bookingsWhereInput
   }
@@ -2031,68 +2022,6 @@ export namespace Prisma {
    */
   export type EventsCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: reviewsWhereInput
-  }
-
-
-  /**
-   * Count Type VenuesCountOutputType
-   */
-
-  export type VenuesCountOutputType = {
-    events: number
-  }
-
-  export type VenuesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    events?: boolean | VenuesCountOutputTypeCountEventsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * VenuesCountOutputType without action
-   */
-  export type VenuesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the VenuesCountOutputType
-     */
-    select?: VenuesCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * VenuesCountOutputType without action
-   */
-  export type VenuesCountOutputTypeCountEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: eventsWhereInput
-  }
-
-
-  /**
-   * Count Type TicketsCountOutputType
-   */
-
-  export type TicketsCountOutputType = {
-    bookings: number
-  }
-
-  export type TicketsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    bookings?: boolean | TicketsCountOutputTypeCountBookingsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * TicketsCountOutputType without action
-   */
-  export type TicketsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TicketsCountOutputType
-     */
-    select?: TicketsCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * TicketsCountOutputType without action
-   */
-  export type TicketsCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: bookingsWhereInput
   }
 
 
@@ -4706,14 +4635,18 @@ export namespace Prisma {
 
   export type EventsAvgAggregateOutputType = {
     id: number | null
+    price: Decimal | null
+    total_seats: number | null
+    available_seats: number | null
     organizer_id: number | null
-    venue_id: number | null
   }
 
   export type EventsSumAggregateOutputType = {
     id: number | null
+    price: Decimal | null
+    total_seats: number | null
+    available_seats: number | null
     organizer_id: number | null
-    venue_id: number | null
   }
 
   export type EventsMinAggregateOutputType = {
@@ -4721,9 +4654,14 @@ export namespace Prisma {
     title: string | null
     description: string | null
     date: Date | null
-    organizer_id: number | null
-    venue_id: number | null
+    time: string | null
+    location: string | null
+    price: Decimal | null
+    total_seats: number | null
+    available_seats: number | null
     category: string | null
+    image: string | null
+    organizer_id: number | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -4733,9 +4671,14 @@ export namespace Prisma {
     title: string | null
     description: string | null
     date: Date | null
-    organizer_id: number | null
-    venue_id: number | null
+    time: string | null
+    location: string | null
+    price: Decimal | null
+    total_seats: number | null
+    available_seats: number | null
     category: string | null
+    image: string | null
+    organizer_id: number | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -4745,9 +4688,14 @@ export namespace Prisma {
     title: number
     description: number
     date: number
-    organizer_id: number
-    venue_id: number
+    time: number
+    location: number
+    price: number
+    total_seats: number
+    available_seats: number
     category: number
+    image: number
+    organizer_id: number
     created_at: number
     updated_at: number
     _all: number
@@ -4756,14 +4704,18 @@ export namespace Prisma {
 
   export type EventsAvgAggregateInputType = {
     id?: true
+    price?: true
+    total_seats?: true
+    available_seats?: true
     organizer_id?: true
-    venue_id?: true
   }
 
   export type EventsSumAggregateInputType = {
     id?: true
+    price?: true
+    total_seats?: true
+    available_seats?: true
     organizer_id?: true
-    venue_id?: true
   }
 
   export type EventsMinAggregateInputType = {
@@ -4771,9 +4723,14 @@ export namespace Prisma {
     title?: true
     description?: true
     date?: true
-    organizer_id?: true
-    venue_id?: true
+    time?: true
+    location?: true
+    price?: true
+    total_seats?: true
+    available_seats?: true
     category?: true
+    image?: true
+    organizer_id?: true
     created_at?: true
     updated_at?: true
   }
@@ -4783,9 +4740,14 @@ export namespace Prisma {
     title?: true
     description?: true
     date?: true
-    organizer_id?: true
-    venue_id?: true
+    time?: true
+    location?: true
+    price?: true
+    total_seats?: true
+    available_seats?: true
     category?: true
+    image?: true
+    organizer_id?: true
     created_at?: true
     updated_at?: true
   }
@@ -4795,9 +4757,14 @@ export namespace Prisma {
     title?: true
     description?: true
     date?: true
-    organizer_id?: true
-    venue_id?: true
+    time?: true
+    location?: true
+    price?: true
+    total_seats?: true
+    available_seats?: true
     category?: true
+    image?: true
+    organizer_id?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -4894,9 +4861,14 @@ export namespace Prisma {
     title: string
     description: string | null
     date: Date
-    organizer_id: number
-    venue_id: number
+    time: string
+    location: string
+    price: Decimal
+    total_seats: number
+    available_seats: number
     category: string
+    image: string | null
+    organizer_id: number
     created_at: Date
     updated_at: Date
     _count: EventsCountAggregateOutputType | null
@@ -4925,14 +4897,17 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     date?: boolean
-    organizer_id?: boolean
-    venue_id?: boolean
+    time?: boolean
+    location?: boolean
+    price?: boolean
+    total_seats?: boolean
+    available_seats?: boolean
     category?: boolean
+    image?: boolean
+    organizer_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     organizer?: boolean | usersDefaultArgs<ExtArgs>
-    venue?: boolean | venuesDefaultArgs<ExtArgs>
-    tickets?: boolean | events$ticketsArgs<ExtArgs>
     bookings?: boolean | events$bookingsArgs<ExtArgs>
     reviews?: boolean | events$reviewsArgs<ExtArgs>
     _count?: boolean | EventsCountOutputTypeDefaultArgs<ExtArgs>
@@ -4943,13 +4918,17 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     date?: boolean
-    organizer_id?: boolean
-    venue_id?: boolean
+    time?: boolean
+    location?: boolean
+    price?: boolean
+    total_seats?: boolean
+    available_seats?: boolean
     category?: boolean
+    image?: boolean
+    organizer_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     organizer?: boolean | usersDefaultArgs<ExtArgs>
-    venue?: boolean | venuesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["events"]>
 
   export type eventsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4957,13 +4936,17 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     date?: boolean
-    organizer_id?: boolean
-    venue_id?: boolean
+    time?: boolean
+    location?: boolean
+    price?: boolean
+    total_seats?: boolean
+    available_seats?: boolean
     category?: boolean
+    image?: boolean
+    organizer_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     organizer?: boolean | usersDefaultArgs<ExtArgs>
-    venue?: boolean | venuesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["events"]>
 
   export type eventsSelectScalar = {
@@ -4971,37 +4954,36 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     date?: boolean
-    organizer_id?: boolean
-    venue_id?: boolean
+    time?: boolean
+    location?: boolean
+    price?: boolean
+    total_seats?: boolean
+    available_seats?: boolean
     category?: boolean
+    image?: boolean
+    organizer_id?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type eventsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "date" | "organizer_id" | "venue_id" | "category" | "created_at" | "updated_at", ExtArgs["result"]["events"]>
+  export type eventsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "date" | "time" | "location" | "price" | "total_seats" | "available_seats" | "category" | "image" | "organizer_id" | "created_at" | "updated_at", ExtArgs["result"]["events"]>
   export type eventsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organizer?: boolean | usersDefaultArgs<ExtArgs>
-    venue?: boolean | venuesDefaultArgs<ExtArgs>
-    tickets?: boolean | events$ticketsArgs<ExtArgs>
     bookings?: boolean | events$bookingsArgs<ExtArgs>
     reviews?: boolean | events$reviewsArgs<ExtArgs>
     _count?: boolean | EventsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type eventsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organizer?: boolean | usersDefaultArgs<ExtArgs>
-    venue?: boolean | venuesDefaultArgs<ExtArgs>
   }
   export type eventsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organizer?: boolean | usersDefaultArgs<ExtArgs>
-    venue?: boolean | venuesDefaultArgs<ExtArgs>
   }
 
   export type $eventsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "events"
     objects: {
       organizer: Prisma.$usersPayload<ExtArgs>
-      venue: Prisma.$venuesPayload<ExtArgs>
-      tickets: Prisma.$ticketsPayload<ExtArgs>[]
       bookings: Prisma.$bookingsPayload<ExtArgs>[]
       reviews: Prisma.$reviewsPayload<ExtArgs>[]
     }
@@ -5010,9 +4992,14 @@ export namespace Prisma {
       title: string
       description: string | null
       date: Date
-      organizer_id: number
-      venue_id: number
+      time: string
+      location: string
+      price: Prisma.Decimal
+      total_seats: number
+      available_seats: number
       category: string
+      image: string | null
+      organizer_id: number
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["events"]>
@@ -5410,8 +5397,6 @@ export namespace Prisma {
   export interface Prisma__eventsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     organizer<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    venue<T extends venuesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, venuesDefaultArgs<ExtArgs>>): Prisma__venuesClient<$Result.GetResult<Prisma.$venuesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    tickets<T extends events$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, events$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ticketsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bookings<T extends events$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, events$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews<T extends events$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, events$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -5447,9 +5432,14 @@ export namespace Prisma {
     readonly title: FieldRef<"events", 'String'>
     readonly description: FieldRef<"events", 'String'>
     readonly date: FieldRef<"events", 'DateTime'>
-    readonly organizer_id: FieldRef<"events", 'Int'>
-    readonly venue_id: FieldRef<"events", 'Int'>
+    readonly time: FieldRef<"events", 'String'>
+    readonly location: FieldRef<"events", 'String'>
+    readonly price: FieldRef<"events", 'Decimal'>
+    readonly total_seats: FieldRef<"events", 'Int'>
+    readonly available_seats: FieldRef<"events", 'Int'>
     readonly category: FieldRef<"events", 'String'>
+    readonly image: FieldRef<"events", 'String'>
+    readonly organizer_id: FieldRef<"events", 'Int'>
     readonly created_at: FieldRef<"events", 'DateTime'>
     readonly updated_at: FieldRef<"events", 'DateTime'>
   }
@@ -5848,30 +5838,6 @@ export namespace Prisma {
   }
 
   /**
-   * events.tickets
-   */
-  export type events$ticketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tickets
-     */
-    select?: ticketsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tickets
-     */
-    omit?: ticketsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ticketsInclude<ExtArgs> | null
-    where?: ticketsWhereInput
-    orderBy?: ticketsOrderByWithRelationInput | ticketsOrderByWithRelationInput[]
-    cursor?: ticketsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TicketsScalarFieldEnum | TicketsScalarFieldEnum[]
-  }
-
-  /**
    * events.bookings
    */
   export type events$bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6164,8 +6130,6 @@ export namespace Prisma {
     contact_info?: boolean
     created_at?: boolean
     updated_at?: boolean
-    events?: boolean | venues$eventsArgs<ExtArgs>
-    _count?: boolean | VenuesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["venues"]>
 
   export type venuesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6202,18 +6166,10 @@ export namespace Prisma {
   }
 
   export type venuesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "city" | "capacity" | "contact_info" | "created_at" | "updated_at", ExtArgs["result"]["venues"]>
-  export type venuesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    events?: boolean | venues$eventsArgs<ExtArgs>
-    _count?: boolean | VenuesCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type venuesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type venuesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $venuesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "venues"
-    objects: {
-      events: Prisma.$eventsPayload<ExtArgs>[]
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
@@ -6617,7 +6573,6 @@ export namespace Prisma {
    */
   export interface Prisma__venuesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    events<T extends venues$eventsArgs<ExtArgs> = {}>(args?: Subset<T, venues$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6672,10 +6627,6 @@ export namespace Prisma {
      */
     omit?: venuesOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: venuesInclude<ExtArgs> | null
-    /**
      * Filter, which venues to fetch.
      */
     where: venuesWhereUniqueInput
@@ -6694,10 +6645,6 @@ export namespace Prisma {
      */
     omit?: venuesOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: venuesInclude<ExtArgs> | null
-    /**
      * Filter, which venues to fetch.
      */
     where: venuesWhereUniqueInput
@@ -6715,10 +6662,6 @@ export namespace Prisma {
      * Omit specific fields from the venues
      */
     omit?: venuesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: venuesInclude<ExtArgs> | null
     /**
      * Filter, which venues to fetch.
      */
@@ -6768,10 +6711,6 @@ export namespace Prisma {
      */
     omit?: venuesOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: venuesInclude<ExtArgs> | null
-    /**
      * Filter, which venues to fetch.
      */
     where?: venuesWhereInput
@@ -6820,10 +6759,6 @@ export namespace Prisma {
      */
     omit?: venuesOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: venuesInclude<ExtArgs> | null
-    /**
      * Filter, which venues to fetch.
      */
     where?: venuesWhereInput
@@ -6866,10 +6801,6 @@ export namespace Prisma {
      * Omit specific fields from the venues
      */
     omit?: venuesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: venuesInclude<ExtArgs> | null
     /**
      * The data needed to create a venues.
      */
@@ -6918,10 +6849,6 @@ export namespace Prisma {
      * Omit specific fields from the venues
      */
     omit?: venuesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: venuesInclude<ExtArgs> | null
     /**
      * The data needed to update a venues.
      */
@@ -6989,10 +6916,6 @@ export namespace Prisma {
      */
     omit?: venuesOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: venuesInclude<ExtArgs> | null
-    /**
      * The filter to search for the venues to update in case it exists.
      */
     where: venuesWhereUniqueInput
@@ -7019,10 +6942,6 @@ export namespace Prisma {
      */
     omit?: venuesOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: venuesInclude<ExtArgs> | null
-    /**
      * Filter which venues to delete.
      */
     where: venuesWhereUniqueInput
@@ -7043,30 +6962,6 @@ export namespace Prisma {
   }
 
   /**
-   * venues.events
-   */
-  export type venues$eventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the events
-     */
-    select?: eventsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the events
-     */
-    omit?: eventsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: eventsInclude<ExtArgs> | null
-    where?: eventsWhereInput
-    orderBy?: eventsOrderByWithRelationInput | eventsOrderByWithRelationInput[]
-    cursor?: eventsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: EventsScalarFieldEnum | EventsScalarFieldEnum[]
-  }
-
-  /**
    * venues without action
    */
   export type venuesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7078,10 +6973,6 @@ export namespace Prisma {
      * Omit specific fields from the venues
      */
     omit?: venuesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: venuesInclude<ExtArgs> | null
   }
 
 
@@ -7099,21 +6990,18 @@ export namespace Prisma {
 
   export type TicketsAvgAggregateOutputType = {
     id: number | null
-    event_id: number | null
     price: Decimal | null
     quantity: number | null
   }
 
   export type TicketsSumAggregateOutputType = {
     id: number | null
-    event_id: number | null
     price: Decimal | null
     quantity: number | null
   }
 
   export type TicketsMinAggregateOutputType = {
     id: number | null
-    event_id: number | null
     type: string | null
     price: Decimal | null
     quantity: number | null
@@ -7123,7 +7011,6 @@ export namespace Prisma {
 
   export type TicketsMaxAggregateOutputType = {
     id: number | null
-    event_id: number | null
     type: string | null
     price: Decimal | null
     quantity: number | null
@@ -7133,7 +7020,6 @@ export namespace Prisma {
 
   export type TicketsCountAggregateOutputType = {
     id: number
-    event_id: number
     type: number
     price: number
     quantity: number
@@ -7145,21 +7031,18 @@ export namespace Prisma {
 
   export type TicketsAvgAggregateInputType = {
     id?: true
-    event_id?: true
     price?: true
     quantity?: true
   }
 
   export type TicketsSumAggregateInputType = {
     id?: true
-    event_id?: true
     price?: true
     quantity?: true
   }
 
   export type TicketsMinAggregateInputType = {
     id?: true
-    event_id?: true
     type?: true
     price?: true
     quantity?: true
@@ -7169,7 +7052,6 @@ export namespace Prisma {
 
   export type TicketsMaxAggregateInputType = {
     id?: true
-    event_id?: true
     type?: true
     price?: true
     quantity?: true
@@ -7179,7 +7061,6 @@ export namespace Prisma {
 
   export type TicketsCountAggregateInputType = {
     id?: true
-    event_id?: true
     type?: true
     price?: true
     quantity?: true
@@ -7276,7 +7157,6 @@ export namespace Prisma {
 
   export type TicketsGroupByOutputType = {
     id: number
-    event_id: number
     type: string
     price: Decimal
     quantity: number
@@ -7305,42 +7185,33 @@ export namespace Prisma {
 
   export type ticketsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    event_id?: boolean
     type?: boolean
     price?: boolean
     quantity?: boolean
     created_at?: boolean
     updated_at?: boolean
-    event?: boolean | eventsDefaultArgs<ExtArgs>
-    bookings?: boolean | tickets$bookingsArgs<ExtArgs>
-    _count?: boolean | TicketsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tickets"]>
 
   export type ticketsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    event_id?: boolean
     type?: boolean
     price?: boolean
     quantity?: boolean
     created_at?: boolean
     updated_at?: boolean
-    event?: boolean | eventsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tickets"]>
 
   export type ticketsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    event_id?: boolean
     type?: boolean
     price?: boolean
     quantity?: boolean
     created_at?: boolean
     updated_at?: boolean
-    event?: boolean | eventsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tickets"]>
 
   export type ticketsSelectScalar = {
     id?: boolean
-    event_id?: boolean
     type?: boolean
     price?: boolean
     quantity?: boolean
@@ -7348,28 +7219,13 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type ticketsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "event_id" | "type" | "price" | "quantity" | "created_at" | "updated_at", ExtArgs["result"]["tickets"]>
-  export type ticketsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    event?: boolean | eventsDefaultArgs<ExtArgs>
-    bookings?: boolean | tickets$bookingsArgs<ExtArgs>
-    _count?: boolean | TicketsCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type ticketsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    event?: boolean | eventsDefaultArgs<ExtArgs>
-  }
-  export type ticketsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    event?: boolean | eventsDefaultArgs<ExtArgs>
-  }
+  export type ticketsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "price" | "quantity" | "created_at" | "updated_at", ExtArgs["result"]["tickets"]>
 
   export type $ticketsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "tickets"
-    objects: {
-      event: Prisma.$eventsPayload<ExtArgs>
-      bookings: Prisma.$bookingsPayload<ExtArgs>[]
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      event_id: number
       type: string
       price: Prisma.Decimal
       quantity: number
@@ -7769,8 +7625,6 @@ export namespace Prisma {
    */
   export interface Prisma__ticketsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    event<T extends eventsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, eventsDefaultArgs<ExtArgs>>): Prisma__eventsClient<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    bookings<T extends tickets$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, tickets$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bookingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7801,7 +7655,6 @@ export namespace Prisma {
    */
   interface ticketsFieldRefs {
     readonly id: FieldRef<"tickets", 'Int'>
-    readonly event_id: FieldRef<"tickets", 'Int'>
     readonly type: FieldRef<"tickets", 'String'>
     readonly price: FieldRef<"tickets", 'Decimal'>
     readonly quantity: FieldRef<"tickets", 'Int'>
@@ -7824,10 +7677,6 @@ export namespace Prisma {
      */
     omit?: ticketsOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ticketsInclude<ExtArgs> | null
-    /**
      * Filter, which tickets to fetch.
      */
     where: ticketsWhereUniqueInput
@@ -7846,10 +7695,6 @@ export namespace Prisma {
      */
     omit?: ticketsOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ticketsInclude<ExtArgs> | null
-    /**
      * Filter, which tickets to fetch.
      */
     where: ticketsWhereUniqueInput
@@ -7867,10 +7712,6 @@ export namespace Prisma {
      * Omit specific fields from the tickets
      */
     omit?: ticketsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ticketsInclude<ExtArgs> | null
     /**
      * Filter, which tickets to fetch.
      */
@@ -7920,10 +7761,6 @@ export namespace Prisma {
      */
     omit?: ticketsOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ticketsInclude<ExtArgs> | null
-    /**
      * Filter, which tickets to fetch.
      */
     where?: ticketsWhereInput
@@ -7972,10 +7809,6 @@ export namespace Prisma {
      */
     omit?: ticketsOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ticketsInclude<ExtArgs> | null
-    /**
      * Filter, which tickets to fetch.
      */
     where?: ticketsWhereInput
@@ -8019,10 +7852,6 @@ export namespace Prisma {
      */
     omit?: ticketsOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ticketsInclude<ExtArgs> | null
-    /**
      * The data needed to create a tickets.
      */
     data: XOR<ticketsCreateInput, ticketsUncheckedCreateInput>
@@ -8056,10 +7885,6 @@ export namespace Prisma {
      */
     data: ticketsCreateManyInput | ticketsCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ticketsIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8074,10 +7899,6 @@ export namespace Prisma {
      * Omit specific fields from the tickets
      */
     omit?: ticketsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ticketsInclude<ExtArgs> | null
     /**
      * The data needed to update a tickets.
      */
@@ -8130,10 +7951,6 @@ export namespace Prisma {
      * Limit how many tickets to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ticketsIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8148,10 +7965,6 @@ export namespace Prisma {
      * Omit specific fields from the tickets
      */
     omit?: ticketsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ticketsInclude<ExtArgs> | null
     /**
      * The filter to search for the tickets to update in case it exists.
      */
@@ -8179,10 +7992,6 @@ export namespace Prisma {
      */
     omit?: ticketsOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ticketsInclude<ExtArgs> | null
-    /**
      * Filter which tickets to delete.
      */
     where: ticketsWhereUniqueInput
@@ -8203,30 +8012,6 @@ export namespace Prisma {
   }
 
   /**
-   * tickets.bookings
-   */
-  export type tickets$bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the bookings
-     */
-    select?: bookingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the bookings
-     */
-    omit?: bookingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: bookingsInclude<ExtArgs> | null
-    where?: bookingsWhereInput
-    orderBy?: bookingsOrderByWithRelationInput | bookingsOrderByWithRelationInput[]
-    cursor?: bookingsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: BookingsScalarFieldEnum | BookingsScalarFieldEnum[]
-  }
-
-  /**
    * tickets without action
    */
   export type ticketsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8238,10 +8023,6 @@ export namespace Prisma {
      * Omit specific fields from the tickets
      */
     omit?: ticketsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ticketsInclude<ExtArgs> | null
   }
 
 
@@ -8261,7 +8042,6 @@ export namespace Prisma {
     id: number | null
     user_id: number | null
     event_id: number | null
-    ticket_id: number | null
     quantity: number | null
     total_price: Decimal | null
   }
@@ -8270,7 +8050,6 @@ export namespace Prisma {
     id: number | null
     user_id: number | null
     event_id: number | null
-    ticket_id: number | null
     quantity: number | null
     total_price: Decimal | null
   }
@@ -8279,7 +8058,6 @@ export namespace Prisma {
     id: number | null
     user_id: number | null
     event_id: number | null
-    ticket_id: number | null
     quantity: number | null
     total_price: Decimal | null
     booking_date: Date | null
@@ -8290,7 +8068,6 @@ export namespace Prisma {
     id: number | null
     user_id: number | null
     event_id: number | null
-    ticket_id: number | null
     quantity: number | null
     total_price: Decimal | null
     booking_date: Date | null
@@ -8301,7 +8078,6 @@ export namespace Prisma {
     id: number
     user_id: number
     event_id: number
-    ticket_id: number
     quantity: number
     total_price: number
     booking_date: number
@@ -8314,7 +8090,6 @@ export namespace Prisma {
     id?: true
     user_id?: true
     event_id?: true
-    ticket_id?: true
     quantity?: true
     total_price?: true
   }
@@ -8323,7 +8098,6 @@ export namespace Prisma {
     id?: true
     user_id?: true
     event_id?: true
-    ticket_id?: true
     quantity?: true
     total_price?: true
   }
@@ -8332,7 +8106,6 @@ export namespace Prisma {
     id?: true
     user_id?: true
     event_id?: true
-    ticket_id?: true
     quantity?: true
     total_price?: true
     booking_date?: true
@@ -8343,7 +8116,6 @@ export namespace Prisma {
     id?: true
     user_id?: true
     event_id?: true
-    ticket_id?: true
     quantity?: true
     total_price?: true
     booking_date?: true
@@ -8354,7 +8126,6 @@ export namespace Prisma {
     id?: true
     user_id?: true
     event_id?: true
-    ticket_id?: true
     quantity?: true
     total_price?: true
     booking_date?: true
@@ -8452,7 +8223,6 @@ export namespace Prisma {
     id: number
     user_id: number
     event_id: number
-    ticket_id: number
     quantity: number
     total_price: Decimal
     booking_date: Date
@@ -8482,14 +8252,12 @@ export namespace Prisma {
     id?: boolean
     user_id?: boolean
     event_id?: boolean
-    ticket_id?: boolean
     quantity?: boolean
     total_price?: boolean
     booking_date?: boolean
     status?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
     event?: boolean | eventsDefaultArgs<ExtArgs>
-    ticket?: boolean | ticketsDefaultArgs<ExtArgs>
     payments?: boolean | bookings$paymentsArgs<ExtArgs>
     _count?: boolean | BookingsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bookings"]>
@@ -8498,58 +8266,50 @@ export namespace Prisma {
     id?: boolean
     user_id?: boolean
     event_id?: boolean
-    ticket_id?: boolean
     quantity?: boolean
     total_price?: boolean
     booking_date?: boolean
     status?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
     event?: boolean | eventsDefaultArgs<ExtArgs>
-    ticket?: boolean | ticketsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bookings"]>
 
   export type bookingsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     user_id?: boolean
     event_id?: boolean
-    ticket_id?: boolean
     quantity?: boolean
     total_price?: boolean
     booking_date?: boolean
     status?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
     event?: boolean | eventsDefaultArgs<ExtArgs>
-    ticket?: boolean | ticketsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bookings"]>
 
   export type bookingsSelectScalar = {
     id?: boolean
     user_id?: boolean
     event_id?: boolean
-    ticket_id?: boolean
     quantity?: boolean
     total_price?: boolean
     booking_date?: boolean
     status?: boolean
   }
 
-  export type bookingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "event_id" | "ticket_id" | "quantity" | "total_price" | "booking_date" | "status", ExtArgs["result"]["bookings"]>
+  export type bookingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "event_id" | "quantity" | "total_price" | "booking_date" | "status", ExtArgs["result"]["bookings"]>
   export type bookingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | usersDefaultArgs<ExtArgs>
     event?: boolean | eventsDefaultArgs<ExtArgs>
-    ticket?: boolean | ticketsDefaultArgs<ExtArgs>
     payments?: boolean | bookings$paymentsArgs<ExtArgs>
     _count?: boolean | BookingsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type bookingsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | usersDefaultArgs<ExtArgs>
     event?: boolean | eventsDefaultArgs<ExtArgs>
-    ticket?: boolean | ticketsDefaultArgs<ExtArgs>
   }
   export type bookingsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | usersDefaultArgs<ExtArgs>
     event?: boolean | eventsDefaultArgs<ExtArgs>
-    ticket?: boolean | ticketsDefaultArgs<ExtArgs>
   }
 
   export type $bookingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8557,14 +8317,12 @@ export namespace Prisma {
     objects: {
       user: Prisma.$usersPayload<ExtArgs>
       event: Prisma.$eventsPayload<ExtArgs>
-      ticket: Prisma.$ticketsPayload<ExtArgs>
       payments: Prisma.$paymentsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       user_id: number
       event_id: number
-      ticket_id: number
       quantity: number
       total_price: Prisma.Decimal
       booking_date: Date
@@ -8965,7 +8723,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     event<T extends eventsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, eventsDefaultArgs<ExtArgs>>): Prisma__eventsClient<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    ticket<T extends ticketsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ticketsDefaultArgs<ExtArgs>>): Prisma__ticketsClient<$Result.GetResult<Prisma.$ticketsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     payments<T extends bookings$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, bookings$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8999,7 +8756,6 @@ export namespace Prisma {
     readonly id: FieldRef<"bookings", 'Int'>
     readonly user_id: FieldRef<"bookings", 'Int'>
     readonly event_id: FieldRef<"bookings", 'Int'>
-    readonly ticket_id: FieldRef<"bookings", 'Int'>
     readonly quantity: FieldRef<"bookings", 'Int'>
     readonly total_price: FieldRef<"bookings", 'Decimal'>
     readonly booking_date: FieldRef<"bookings", 'DateTime'>
@@ -16223,9 +15979,14 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     date: 'date',
-    organizer_id: 'organizer_id',
-    venue_id: 'venue_id',
+    time: 'time',
+    location: 'location',
+    price: 'price',
+    total_seats: 'total_seats',
+    available_seats: 'available_seats',
     category: 'category',
+    image: 'image',
+    organizer_id: 'organizer_id',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -16249,7 +16010,6 @@ export namespace Prisma {
 
   export const TicketsScalarFieldEnum: {
     id: 'id',
-    event_id: 'event_id',
     type: 'type',
     price: 'price',
     quantity: 'quantity',
@@ -16264,7 +16024,6 @@ export namespace Prisma {
     id: 'id',
     user_id: 'user_id',
     event_id: 'event_id',
-    ticket_id: 'ticket_id',
     quantity: 'quantity',
     total_price: 'total_price',
     booking_date: 'booking_date',
@@ -16644,14 +16403,17 @@ export namespace Prisma {
     title?: StringFilter<"events"> | string
     description?: StringNullableFilter<"events"> | string | null
     date?: DateTimeFilter<"events"> | Date | string
-    organizer_id?: IntFilter<"events"> | number
-    venue_id?: IntFilter<"events"> | number
+    time?: StringFilter<"events"> | string
+    location?: StringFilter<"events"> | string
+    price?: DecimalFilter<"events"> | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFilter<"events"> | number
+    available_seats?: IntFilter<"events"> | number
     category?: StringFilter<"events"> | string
+    image?: StringNullableFilter<"events"> | string | null
+    organizer_id?: IntFilter<"events"> | number
     created_at?: DateTimeFilter<"events"> | Date | string
     updated_at?: DateTimeFilter<"events"> | Date | string
     organizer?: XOR<UsersScalarRelationFilter, usersWhereInput>
-    venue?: XOR<VenuesScalarRelationFilter, venuesWhereInput>
-    tickets?: TicketsListRelationFilter
     bookings?: BookingsListRelationFilter
     reviews?: ReviewsListRelationFilter
   }
@@ -16661,14 +16423,17 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     date?: SortOrder
-    organizer_id?: SortOrder
-    venue_id?: SortOrder
+    time?: SortOrder
+    location?: SortOrder
+    price?: SortOrder
+    total_seats?: SortOrder
+    available_seats?: SortOrder
     category?: SortOrder
+    image?: SortOrderInput | SortOrder
+    organizer_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     organizer?: usersOrderByWithRelationInput
-    venue?: venuesOrderByWithRelationInput
-    tickets?: ticketsOrderByRelationAggregateInput
     bookings?: bookingsOrderByRelationAggregateInput
     reviews?: reviewsOrderByRelationAggregateInput
   }
@@ -16681,14 +16446,17 @@ export namespace Prisma {
     title?: StringFilter<"events"> | string
     description?: StringNullableFilter<"events"> | string | null
     date?: DateTimeFilter<"events"> | Date | string
-    organizer_id?: IntFilter<"events"> | number
-    venue_id?: IntFilter<"events"> | number
+    time?: StringFilter<"events"> | string
+    location?: StringFilter<"events"> | string
+    price?: DecimalFilter<"events"> | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFilter<"events"> | number
+    available_seats?: IntFilter<"events"> | number
     category?: StringFilter<"events"> | string
+    image?: StringNullableFilter<"events"> | string | null
+    organizer_id?: IntFilter<"events"> | number
     created_at?: DateTimeFilter<"events"> | Date | string
     updated_at?: DateTimeFilter<"events"> | Date | string
     organizer?: XOR<UsersScalarRelationFilter, usersWhereInput>
-    venue?: XOR<VenuesScalarRelationFilter, venuesWhereInput>
-    tickets?: TicketsListRelationFilter
     bookings?: BookingsListRelationFilter
     reviews?: ReviewsListRelationFilter
   }, "id">
@@ -16698,9 +16466,14 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     date?: SortOrder
-    organizer_id?: SortOrder
-    venue_id?: SortOrder
+    time?: SortOrder
+    location?: SortOrder
+    price?: SortOrder
+    total_seats?: SortOrder
+    available_seats?: SortOrder
     category?: SortOrder
+    image?: SortOrderInput | SortOrder
+    organizer_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: eventsCountOrderByAggregateInput
@@ -16718,9 +16491,14 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"events"> | string
     description?: StringNullableWithAggregatesFilter<"events"> | string | null
     date?: DateTimeWithAggregatesFilter<"events"> | Date | string
-    organizer_id?: IntWithAggregatesFilter<"events"> | number
-    venue_id?: IntWithAggregatesFilter<"events"> | number
+    time?: StringWithAggregatesFilter<"events"> | string
+    location?: StringWithAggregatesFilter<"events"> | string
+    price?: DecimalWithAggregatesFilter<"events"> | Decimal | DecimalJsLike | number | string
+    total_seats?: IntWithAggregatesFilter<"events"> | number
+    available_seats?: IntWithAggregatesFilter<"events"> | number
     category?: StringWithAggregatesFilter<"events"> | string
+    image?: StringNullableWithAggregatesFilter<"events"> | string | null
+    organizer_id?: IntWithAggregatesFilter<"events"> | number
     created_at?: DateTimeWithAggregatesFilter<"events"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"events"> | Date | string
   }
@@ -16737,7 +16515,6 @@ export namespace Prisma {
     contact_info?: StringNullableFilter<"venues"> | string | null
     created_at?: DateTimeFilter<"venues"> | Date | string
     updated_at?: DateTimeFilter<"venues"> | Date | string
-    events?: EventsListRelationFilter
   }
 
   export type venuesOrderByWithRelationInput = {
@@ -16749,7 +16526,6 @@ export namespace Prisma {
     contact_info?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    events?: eventsOrderByRelationAggregateInput
   }
 
   export type venuesWhereUniqueInput = Prisma.AtLeast<{
@@ -16764,7 +16540,6 @@ export namespace Prisma {
     contact_info?: StringNullableFilter<"venues"> | string | null
     created_at?: DateTimeFilter<"venues"> | Date | string
     updated_at?: DateTimeFilter<"venues"> | Date | string
-    events?: EventsListRelationFilter
   }, "id">
 
   export type venuesOrderByWithAggregationInput = {
@@ -16802,26 +16577,20 @@ export namespace Prisma {
     OR?: ticketsWhereInput[]
     NOT?: ticketsWhereInput | ticketsWhereInput[]
     id?: IntFilter<"tickets"> | number
-    event_id?: IntFilter<"tickets"> | number
     type?: StringFilter<"tickets"> | string
     price?: DecimalFilter<"tickets"> | Decimal | DecimalJsLike | number | string
     quantity?: IntFilter<"tickets"> | number
     created_at?: DateTimeFilter<"tickets"> | Date | string
     updated_at?: DateTimeFilter<"tickets"> | Date | string
-    event?: XOR<EventsScalarRelationFilter, eventsWhereInput>
-    bookings?: BookingsListRelationFilter
   }
 
   export type ticketsOrderByWithRelationInput = {
     id?: SortOrder
-    event_id?: SortOrder
     type?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    event?: eventsOrderByWithRelationInput
-    bookings?: bookingsOrderByRelationAggregateInput
   }
 
   export type ticketsWhereUniqueInput = Prisma.AtLeast<{
@@ -16829,19 +16598,15 @@ export namespace Prisma {
     AND?: ticketsWhereInput | ticketsWhereInput[]
     OR?: ticketsWhereInput[]
     NOT?: ticketsWhereInput | ticketsWhereInput[]
-    event_id?: IntFilter<"tickets"> | number
     type?: StringFilter<"tickets"> | string
     price?: DecimalFilter<"tickets"> | Decimal | DecimalJsLike | number | string
     quantity?: IntFilter<"tickets"> | number
     created_at?: DateTimeFilter<"tickets"> | Date | string
     updated_at?: DateTimeFilter<"tickets"> | Date | string
-    event?: XOR<EventsScalarRelationFilter, eventsWhereInput>
-    bookings?: BookingsListRelationFilter
   }, "id">
 
   export type ticketsOrderByWithAggregationInput = {
     id?: SortOrder
-    event_id?: SortOrder
     type?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
@@ -16859,7 +16624,6 @@ export namespace Prisma {
     OR?: ticketsScalarWhereWithAggregatesInput[]
     NOT?: ticketsScalarWhereWithAggregatesInput | ticketsScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"tickets"> | number
-    event_id?: IntWithAggregatesFilter<"tickets"> | number
     type?: StringWithAggregatesFilter<"tickets"> | string
     price?: DecimalWithAggregatesFilter<"tickets"> | Decimal | DecimalJsLike | number | string
     quantity?: IntWithAggregatesFilter<"tickets"> | number
@@ -16874,14 +16638,12 @@ export namespace Prisma {
     id?: IntFilter<"bookings"> | number
     user_id?: IntFilter<"bookings"> | number
     event_id?: IntFilter<"bookings"> | number
-    ticket_id?: IntFilter<"bookings"> | number
     quantity?: IntFilter<"bookings"> | number
     total_price?: DecimalFilter<"bookings"> | Decimal | DecimalJsLike | number | string
     booking_date?: DateTimeFilter<"bookings"> | Date | string
     status?: StringFilter<"bookings"> | string
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     event?: XOR<EventsScalarRelationFilter, eventsWhereInput>
-    ticket?: XOR<TicketsScalarRelationFilter, ticketsWhereInput>
     payments?: PaymentsListRelationFilter
   }
 
@@ -16889,14 +16651,12 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     event_id?: SortOrder
-    ticket_id?: SortOrder
     quantity?: SortOrder
     total_price?: SortOrder
     booking_date?: SortOrder
     status?: SortOrder
     user?: usersOrderByWithRelationInput
     event?: eventsOrderByWithRelationInput
-    ticket?: ticketsOrderByWithRelationInput
     payments?: paymentsOrderByRelationAggregateInput
   }
 
@@ -16907,14 +16667,12 @@ export namespace Prisma {
     NOT?: bookingsWhereInput | bookingsWhereInput[]
     user_id?: IntFilter<"bookings"> | number
     event_id?: IntFilter<"bookings"> | number
-    ticket_id?: IntFilter<"bookings"> | number
     quantity?: IntFilter<"bookings"> | number
     total_price?: DecimalFilter<"bookings"> | Decimal | DecimalJsLike | number | string
     booking_date?: DateTimeFilter<"bookings"> | Date | string
     status?: StringFilter<"bookings"> | string
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     event?: XOR<EventsScalarRelationFilter, eventsWhereInput>
-    ticket?: XOR<TicketsScalarRelationFilter, ticketsWhereInput>
     payments?: PaymentsListRelationFilter
   }, "id">
 
@@ -16922,7 +16680,6 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     event_id?: SortOrder
-    ticket_id?: SortOrder
     quantity?: SortOrder
     total_price?: SortOrder
     booking_date?: SortOrder
@@ -16941,7 +16698,6 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"bookings"> | number
     user_id?: IntWithAggregatesFilter<"bookings"> | number
     event_id?: IntWithAggregatesFilter<"bookings"> | number
-    ticket_id?: IntWithAggregatesFilter<"bookings"> | number
     quantity?: IntWithAggregatesFilter<"bookings"> | number
     total_price?: DecimalWithAggregatesFilter<"bookings"> | Decimal | DecimalJsLike | number | string
     booking_date?: DateTimeWithAggregatesFilter<"bookings"> | Date | string
@@ -17513,12 +17269,16 @@ export namespace Prisma {
     title: string
     description?: string | null
     date: Date | string
+    time: string
+    location: string
+    price: Decimal | DecimalJsLike | number | string
+    total_seats: number
+    available_seats: number
     category: string
+    image?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     organizer: usersCreateNestedOneWithoutEventsInput
-    venue: venuesCreateNestedOneWithoutEventsInput
-    tickets?: ticketsCreateNestedManyWithoutEventInput
     bookings?: bookingsCreateNestedManyWithoutEventInput
     reviews?: reviewsCreateNestedManyWithoutEventInput
   }
@@ -17528,12 +17288,16 @@ export namespace Prisma {
     title: string
     description?: string | null
     date: Date | string
-    organizer_id: number
-    venue_id: number
+    time: string
+    location: string
+    price: Decimal | DecimalJsLike | number | string
+    total_seats: number
+    available_seats: number
     category: string
+    image?: string | null
+    organizer_id: number
     created_at?: Date | string
     updated_at?: Date | string
-    tickets?: ticketsUncheckedCreateNestedManyWithoutEventInput
     bookings?: bookingsUncheckedCreateNestedManyWithoutEventInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutEventInput
   }
@@ -17542,12 +17306,16 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFieldUpdateOperationsInput | number
+    available_seats?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     organizer?: usersUpdateOneRequiredWithoutEventsNestedInput
-    venue?: venuesUpdateOneRequiredWithoutEventsNestedInput
-    tickets?: ticketsUpdateManyWithoutEventNestedInput
     bookings?: bookingsUpdateManyWithoutEventNestedInput
     reviews?: reviewsUpdateManyWithoutEventNestedInput
   }
@@ -17557,12 +17325,16 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    organizer_id?: IntFieldUpdateOperationsInput | number
-    venue_id?: IntFieldUpdateOperationsInput | number
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFieldUpdateOperationsInput | number
+    available_seats?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizer_id?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    tickets?: ticketsUncheckedUpdateManyWithoutEventNestedInput
     bookings?: bookingsUncheckedUpdateManyWithoutEventNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutEventNestedInput
   }
@@ -17572,9 +17344,14 @@ export namespace Prisma {
     title: string
     description?: string | null
     date: Date | string
-    organizer_id: number
-    venue_id: number
+    time: string
+    location: string
+    price: Decimal | DecimalJsLike | number | string
+    total_seats: number
+    available_seats: number
     category: string
+    image?: string | null
+    organizer_id: number
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -17583,7 +17360,13 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFieldUpdateOperationsInput | number
+    available_seats?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17593,9 +17376,14 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    organizer_id?: IntFieldUpdateOperationsInput | number
-    venue_id?: IntFieldUpdateOperationsInput | number
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFieldUpdateOperationsInput | number
+    available_seats?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizer_id?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17608,7 +17396,6 @@ export namespace Prisma {
     contact_info?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    events?: eventsCreateNestedManyWithoutVenueInput
   }
 
   export type venuesUncheckedCreateInput = {
@@ -17620,7 +17407,6 @@ export namespace Prisma {
     contact_info?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    events?: eventsUncheckedCreateNestedManyWithoutVenueInput
   }
 
   export type venuesUpdateInput = {
@@ -17631,7 +17417,6 @@ export namespace Prisma {
     contact_info?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    events?: eventsUpdateManyWithoutVenueNestedInput
   }
 
   export type venuesUncheckedUpdateInput = {
@@ -17643,7 +17428,6 @@ export namespace Prisma {
     contact_info?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    events?: eventsUncheckedUpdateManyWithoutVenueNestedInput
   }
 
   export type venuesCreateManyInput = {
@@ -17684,19 +17468,15 @@ export namespace Prisma {
     quantity: number
     created_at?: Date | string
     updated_at?: Date | string
-    event: eventsCreateNestedOneWithoutTicketsInput
-    bookings?: bookingsCreateNestedManyWithoutTicketInput
   }
 
   export type ticketsUncheckedCreateInput = {
     id?: number
-    event_id: number
     type: string
     price: Decimal | DecimalJsLike | number | string
     quantity: number
     created_at?: Date | string
     updated_at?: Date | string
-    bookings?: bookingsUncheckedCreateNestedManyWithoutTicketInput
   }
 
   export type ticketsUpdateInput = {
@@ -17705,24 +17485,19 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    event?: eventsUpdateOneRequiredWithoutTicketsNestedInput
-    bookings?: bookingsUpdateManyWithoutTicketNestedInput
   }
 
   export type ticketsUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    event_id?: IntFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantity?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    bookings?: bookingsUncheckedUpdateManyWithoutTicketNestedInput
   }
 
   export type ticketsCreateManyInput = {
     id?: number
-    event_id: number
     type: string
     price: Decimal | DecimalJsLike | number | string
     quantity: number
@@ -17740,7 +17515,6 @@ export namespace Prisma {
 
   export type ticketsUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    event_id?: IntFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -17755,7 +17529,6 @@ export namespace Prisma {
     status: string
     user: usersCreateNestedOneWithoutBookingsInput
     event: eventsCreateNestedOneWithoutBookingsInput
-    ticket: ticketsCreateNestedOneWithoutBookingsInput
     payments?: paymentsCreateNestedManyWithoutBookingInput
   }
 
@@ -17763,7 +17536,6 @@ export namespace Prisma {
     id?: number
     user_id: number
     event_id: number
-    ticket_id: number
     quantity: number
     total_price: Decimal | DecimalJsLike | number | string
     booking_date: Date | string
@@ -17778,7 +17550,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     user?: usersUpdateOneRequiredWithoutBookingsNestedInput
     event?: eventsUpdateOneRequiredWithoutBookingsNestedInput
-    ticket?: ticketsUpdateOneRequiredWithoutBookingsNestedInput
     payments?: paymentsUpdateManyWithoutBookingNestedInput
   }
 
@@ -17786,7 +17557,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     user_id?: IntFieldUpdateOperationsInput | number
     event_id?: IntFieldUpdateOperationsInput | number
-    ticket_id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17798,7 +17568,6 @@ export namespace Prisma {
     id?: number
     user_id: number
     event_id: number
-    ticket_id: number
     quantity: number
     total_price: Decimal | DecimalJsLike | number | string
     booking_date: Date | string
@@ -17816,7 +17585,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     user_id?: IntFieldUpdateOperationsInput | number
     event_id?: IntFieldUpdateOperationsInput | number
-    ticket_id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18526,19 +18294,15 @@ export namespace Prisma {
     user_id?: SortOrder
   }
 
-  export type VenuesScalarRelationFilter = {
-    is?: venuesWhereInput
-    isNot?: venuesWhereInput
-  }
-
-  export type TicketsListRelationFilter = {
-    every?: ticketsWhereInput
-    some?: ticketsWhereInput
-    none?: ticketsWhereInput
-  }
-
-  export type ticketsOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type eventsCountOrderByAggregateInput = {
@@ -18546,17 +18310,24 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     date?: SortOrder
-    organizer_id?: SortOrder
-    venue_id?: SortOrder
+    time?: SortOrder
+    location?: SortOrder
+    price?: SortOrder
+    total_seats?: SortOrder
+    available_seats?: SortOrder
     category?: SortOrder
+    image?: SortOrder
+    organizer_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
 
   export type eventsAvgOrderByAggregateInput = {
     id?: SortOrder
+    price?: SortOrder
+    total_seats?: SortOrder
+    available_seats?: SortOrder
     organizer_id?: SortOrder
-    venue_id?: SortOrder
   }
 
   export type eventsMaxOrderByAggregateInput = {
@@ -18564,9 +18335,14 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     date?: SortOrder
-    organizer_id?: SortOrder
-    venue_id?: SortOrder
+    time?: SortOrder
+    location?: SortOrder
+    price?: SortOrder
+    total_seats?: SortOrder
+    available_seats?: SortOrder
     category?: SortOrder
+    image?: SortOrder
+    organizer_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -18576,17 +18352,40 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     date?: SortOrder
-    organizer_id?: SortOrder
-    venue_id?: SortOrder
+    time?: SortOrder
+    location?: SortOrder
+    price?: SortOrder
+    total_seats?: SortOrder
+    available_seats?: SortOrder
     category?: SortOrder
+    image?: SortOrder
+    organizer_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
 
   export type eventsSumOrderByAggregateInput = {
     id?: SortOrder
+    price?: SortOrder
+    total_seats?: SortOrder
+    available_seats?: SortOrder
     organizer_id?: SortOrder
-    venue_id?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type venuesCountOrderByAggregateInput = {
@@ -18632,25 +18431,8 @@ export namespace Prisma {
     capacity?: SortOrder
   }
 
-  export type DecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
-  export type EventsScalarRelationFilter = {
-    is?: eventsWhereInput
-    isNot?: eventsWhereInput
-  }
-
   export type ticketsCountOrderByAggregateInput = {
     id?: SortOrder
-    event_id?: SortOrder
     type?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
@@ -18660,14 +18442,12 @@ export namespace Prisma {
 
   export type ticketsAvgOrderByAggregateInput = {
     id?: SortOrder
-    event_id?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
   }
 
   export type ticketsMaxOrderByAggregateInput = {
     id?: SortOrder
-    event_id?: SortOrder
     type?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
@@ -18677,7 +18457,6 @@ export namespace Prisma {
 
   export type ticketsMinOrderByAggregateInput = {
     id?: SortOrder
-    event_id?: SortOrder
     type?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
@@ -18687,30 +18466,13 @@ export namespace Prisma {
 
   export type ticketsSumOrderByAggregateInput = {
     id?: SortOrder
-    event_id?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
   }
 
-  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
-  export type TicketsScalarRelationFilter = {
-    is?: ticketsWhereInput
-    isNot?: ticketsWhereInput
+  export type EventsScalarRelationFilter = {
+    is?: eventsWhereInput
+    isNot?: eventsWhereInput
   }
 
   export type PaymentsListRelationFilter = {
@@ -18727,7 +18489,6 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     event_id?: SortOrder
-    ticket_id?: SortOrder
     quantity?: SortOrder
     total_price?: SortOrder
     booking_date?: SortOrder
@@ -18738,7 +18499,6 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     event_id?: SortOrder
-    ticket_id?: SortOrder
     quantity?: SortOrder
     total_price?: SortOrder
   }
@@ -18747,7 +18507,6 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     event_id?: SortOrder
-    ticket_id?: SortOrder
     quantity?: SortOrder
     total_price?: SortOrder
     booking_date?: SortOrder
@@ -18758,7 +18517,6 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     event_id?: SortOrder
-    ticket_id?: SortOrder
     quantity?: SortOrder
     total_price?: SortOrder
     booking_date?: SortOrder
@@ -18769,7 +18527,6 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     event_id?: SortOrder
-    ticket_id?: SortOrder
     quantity?: SortOrder
     total_price?: SortOrder
   }
@@ -19484,19 +19241,6 @@ export namespace Prisma {
     connect?: usersWhereUniqueInput
   }
 
-  export type venuesCreateNestedOneWithoutEventsInput = {
-    create?: XOR<venuesCreateWithoutEventsInput, venuesUncheckedCreateWithoutEventsInput>
-    connectOrCreate?: venuesCreateOrConnectWithoutEventsInput
-    connect?: venuesWhereUniqueInput
-  }
-
-  export type ticketsCreateNestedManyWithoutEventInput = {
-    create?: XOR<ticketsCreateWithoutEventInput, ticketsUncheckedCreateWithoutEventInput> | ticketsCreateWithoutEventInput[] | ticketsUncheckedCreateWithoutEventInput[]
-    connectOrCreate?: ticketsCreateOrConnectWithoutEventInput | ticketsCreateOrConnectWithoutEventInput[]
-    createMany?: ticketsCreateManyEventInputEnvelope
-    connect?: ticketsWhereUniqueInput | ticketsWhereUniqueInput[]
-  }
-
   export type bookingsCreateNestedManyWithoutEventInput = {
     create?: XOR<bookingsCreateWithoutEventInput, bookingsUncheckedCreateWithoutEventInput> | bookingsCreateWithoutEventInput[] | bookingsUncheckedCreateWithoutEventInput[]
     connectOrCreate?: bookingsCreateOrConnectWithoutEventInput | bookingsCreateOrConnectWithoutEventInput[]
@@ -19509,13 +19253,6 @@ export namespace Prisma {
     connectOrCreate?: reviewsCreateOrConnectWithoutEventInput | reviewsCreateOrConnectWithoutEventInput[]
     createMany?: reviewsCreateManyEventInputEnvelope
     connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
-  }
-
-  export type ticketsUncheckedCreateNestedManyWithoutEventInput = {
-    create?: XOR<ticketsCreateWithoutEventInput, ticketsUncheckedCreateWithoutEventInput> | ticketsCreateWithoutEventInput[] | ticketsUncheckedCreateWithoutEventInput[]
-    connectOrCreate?: ticketsCreateOrConnectWithoutEventInput | ticketsCreateOrConnectWithoutEventInput[]
-    createMany?: ticketsCreateManyEventInputEnvelope
-    connect?: ticketsWhereUniqueInput | ticketsWhereUniqueInput[]
   }
 
   export type bookingsUncheckedCreateNestedManyWithoutEventInput = {
@@ -19532,34 +19269,20 @@ export namespace Prisma {
     connect?: reviewsWhereUniqueInput | reviewsWhereUniqueInput[]
   }
 
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
   export type usersUpdateOneRequiredWithoutEventsNestedInput = {
     create?: XOR<usersCreateWithoutEventsInput, usersUncheckedCreateWithoutEventsInput>
     connectOrCreate?: usersCreateOrConnectWithoutEventsInput
     upsert?: usersUpsertWithoutEventsInput
     connect?: usersWhereUniqueInput
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutEventsInput, usersUpdateWithoutEventsInput>, usersUncheckedUpdateWithoutEventsInput>
-  }
-
-  export type venuesUpdateOneRequiredWithoutEventsNestedInput = {
-    create?: XOR<venuesCreateWithoutEventsInput, venuesUncheckedCreateWithoutEventsInput>
-    connectOrCreate?: venuesCreateOrConnectWithoutEventsInput
-    upsert?: venuesUpsertWithoutEventsInput
-    connect?: venuesWhereUniqueInput
-    update?: XOR<XOR<venuesUpdateToOneWithWhereWithoutEventsInput, venuesUpdateWithoutEventsInput>, venuesUncheckedUpdateWithoutEventsInput>
-  }
-
-  export type ticketsUpdateManyWithoutEventNestedInput = {
-    create?: XOR<ticketsCreateWithoutEventInput, ticketsUncheckedCreateWithoutEventInput> | ticketsCreateWithoutEventInput[] | ticketsUncheckedCreateWithoutEventInput[]
-    connectOrCreate?: ticketsCreateOrConnectWithoutEventInput | ticketsCreateOrConnectWithoutEventInput[]
-    upsert?: ticketsUpsertWithWhereUniqueWithoutEventInput | ticketsUpsertWithWhereUniqueWithoutEventInput[]
-    createMany?: ticketsCreateManyEventInputEnvelope
-    set?: ticketsWhereUniqueInput | ticketsWhereUniqueInput[]
-    disconnect?: ticketsWhereUniqueInput | ticketsWhereUniqueInput[]
-    delete?: ticketsWhereUniqueInput | ticketsWhereUniqueInput[]
-    connect?: ticketsWhereUniqueInput | ticketsWhereUniqueInput[]
-    update?: ticketsUpdateWithWhereUniqueWithoutEventInput | ticketsUpdateWithWhereUniqueWithoutEventInput[]
-    updateMany?: ticketsUpdateManyWithWhereWithoutEventInput | ticketsUpdateManyWithWhereWithoutEventInput[]
-    deleteMany?: ticketsScalarWhereInput | ticketsScalarWhereInput[]
   }
 
   export type bookingsUpdateManyWithoutEventNestedInput = {
@@ -19590,20 +19313,6 @@ export namespace Prisma {
     deleteMany?: reviewsScalarWhereInput | reviewsScalarWhereInput[]
   }
 
-  export type ticketsUncheckedUpdateManyWithoutEventNestedInput = {
-    create?: XOR<ticketsCreateWithoutEventInput, ticketsUncheckedCreateWithoutEventInput> | ticketsCreateWithoutEventInput[] | ticketsUncheckedCreateWithoutEventInput[]
-    connectOrCreate?: ticketsCreateOrConnectWithoutEventInput | ticketsCreateOrConnectWithoutEventInput[]
-    upsert?: ticketsUpsertWithWhereUniqueWithoutEventInput | ticketsUpsertWithWhereUniqueWithoutEventInput[]
-    createMany?: ticketsCreateManyEventInputEnvelope
-    set?: ticketsWhereUniqueInput | ticketsWhereUniqueInput[]
-    disconnect?: ticketsWhereUniqueInput | ticketsWhereUniqueInput[]
-    delete?: ticketsWhereUniqueInput | ticketsWhereUniqueInput[]
-    connect?: ticketsWhereUniqueInput | ticketsWhereUniqueInput[]
-    update?: ticketsUpdateWithWhereUniqueWithoutEventInput | ticketsUpdateWithWhereUniqueWithoutEventInput[]
-    updateMany?: ticketsUpdateManyWithWhereWithoutEventInput | ticketsUpdateManyWithWhereWithoutEventInput[]
-    deleteMany?: ticketsScalarWhereInput | ticketsScalarWhereInput[]
-  }
-
   export type bookingsUncheckedUpdateManyWithoutEventNestedInput = {
     create?: XOR<bookingsCreateWithoutEventInput, bookingsUncheckedCreateWithoutEventInput> | bookingsCreateWithoutEventInput[] | bookingsUncheckedCreateWithoutEventInput[]
     connectOrCreate?: bookingsCreateOrConnectWithoutEventInput | bookingsCreateOrConnectWithoutEventInput[]
@@ -19632,112 +19341,6 @@ export namespace Prisma {
     deleteMany?: reviewsScalarWhereInput | reviewsScalarWhereInput[]
   }
 
-  export type eventsCreateNestedManyWithoutVenueInput = {
-    create?: XOR<eventsCreateWithoutVenueInput, eventsUncheckedCreateWithoutVenueInput> | eventsCreateWithoutVenueInput[] | eventsUncheckedCreateWithoutVenueInput[]
-    connectOrCreate?: eventsCreateOrConnectWithoutVenueInput | eventsCreateOrConnectWithoutVenueInput[]
-    createMany?: eventsCreateManyVenueInputEnvelope
-    connect?: eventsWhereUniqueInput | eventsWhereUniqueInput[]
-  }
-
-  export type eventsUncheckedCreateNestedManyWithoutVenueInput = {
-    create?: XOR<eventsCreateWithoutVenueInput, eventsUncheckedCreateWithoutVenueInput> | eventsCreateWithoutVenueInput[] | eventsUncheckedCreateWithoutVenueInput[]
-    connectOrCreate?: eventsCreateOrConnectWithoutVenueInput | eventsCreateOrConnectWithoutVenueInput[]
-    createMany?: eventsCreateManyVenueInputEnvelope
-    connect?: eventsWhereUniqueInput | eventsWhereUniqueInput[]
-  }
-
-  export type eventsUpdateManyWithoutVenueNestedInput = {
-    create?: XOR<eventsCreateWithoutVenueInput, eventsUncheckedCreateWithoutVenueInput> | eventsCreateWithoutVenueInput[] | eventsUncheckedCreateWithoutVenueInput[]
-    connectOrCreate?: eventsCreateOrConnectWithoutVenueInput | eventsCreateOrConnectWithoutVenueInput[]
-    upsert?: eventsUpsertWithWhereUniqueWithoutVenueInput | eventsUpsertWithWhereUniqueWithoutVenueInput[]
-    createMany?: eventsCreateManyVenueInputEnvelope
-    set?: eventsWhereUniqueInput | eventsWhereUniqueInput[]
-    disconnect?: eventsWhereUniqueInput | eventsWhereUniqueInput[]
-    delete?: eventsWhereUniqueInput | eventsWhereUniqueInput[]
-    connect?: eventsWhereUniqueInput | eventsWhereUniqueInput[]
-    update?: eventsUpdateWithWhereUniqueWithoutVenueInput | eventsUpdateWithWhereUniqueWithoutVenueInput[]
-    updateMany?: eventsUpdateManyWithWhereWithoutVenueInput | eventsUpdateManyWithWhereWithoutVenueInput[]
-    deleteMany?: eventsScalarWhereInput | eventsScalarWhereInput[]
-  }
-
-  export type eventsUncheckedUpdateManyWithoutVenueNestedInput = {
-    create?: XOR<eventsCreateWithoutVenueInput, eventsUncheckedCreateWithoutVenueInput> | eventsCreateWithoutVenueInput[] | eventsUncheckedCreateWithoutVenueInput[]
-    connectOrCreate?: eventsCreateOrConnectWithoutVenueInput | eventsCreateOrConnectWithoutVenueInput[]
-    upsert?: eventsUpsertWithWhereUniqueWithoutVenueInput | eventsUpsertWithWhereUniqueWithoutVenueInput[]
-    createMany?: eventsCreateManyVenueInputEnvelope
-    set?: eventsWhereUniqueInput | eventsWhereUniqueInput[]
-    disconnect?: eventsWhereUniqueInput | eventsWhereUniqueInput[]
-    delete?: eventsWhereUniqueInput | eventsWhereUniqueInput[]
-    connect?: eventsWhereUniqueInput | eventsWhereUniqueInput[]
-    update?: eventsUpdateWithWhereUniqueWithoutVenueInput | eventsUpdateWithWhereUniqueWithoutVenueInput[]
-    updateMany?: eventsUpdateManyWithWhereWithoutVenueInput | eventsUpdateManyWithWhereWithoutVenueInput[]
-    deleteMany?: eventsScalarWhereInput | eventsScalarWhereInput[]
-  }
-
-  export type eventsCreateNestedOneWithoutTicketsInput = {
-    create?: XOR<eventsCreateWithoutTicketsInput, eventsUncheckedCreateWithoutTicketsInput>
-    connectOrCreate?: eventsCreateOrConnectWithoutTicketsInput
-    connect?: eventsWhereUniqueInput
-  }
-
-  export type bookingsCreateNestedManyWithoutTicketInput = {
-    create?: XOR<bookingsCreateWithoutTicketInput, bookingsUncheckedCreateWithoutTicketInput> | bookingsCreateWithoutTicketInput[] | bookingsUncheckedCreateWithoutTicketInput[]
-    connectOrCreate?: bookingsCreateOrConnectWithoutTicketInput | bookingsCreateOrConnectWithoutTicketInput[]
-    createMany?: bookingsCreateManyTicketInputEnvelope
-    connect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
-  }
-
-  export type bookingsUncheckedCreateNestedManyWithoutTicketInput = {
-    create?: XOR<bookingsCreateWithoutTicketInput, bookingsUncheckedCreateWithoutTicketInput> | bookingsCreateWithoutTicketInput[] | bookingsUncheckedCreateWithoutTicketInput[]
-    connectOrCreate?: bookingsCreateOrConnectWithoutTicketInput | bookingsCreateOrConnectWithoutTicketInput[]
-    createMany?: bookingsCreateManyTicketInputEnvelope
-    connect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
-  }
-
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
-  }
-
-  export type eventsUpdateOneRequiredWithoutTicketsNestedInput = {
-    create?: XOR<eventsCreateWithoutTicketsInput, eventsUncheckedCreateWithoutTicketsInput>
-    connectOrCreate?: eventsCreateOrConnectWithoutTicketsInput
-    upsert?: eventsUpsertWithoutTicketsInput
-    connect?: eventsWhereUniqueInput
-    update?: XOR<XOR<eventsUpdateToOneWithWhereWithoutTicketsInput, eventsUpdateWithoutTicketsInput>, eventsUncheckedUpdateWithoutTicketsInput>
-  }
-
-  export type bookingsUpdateManyWithoutTicketNestedInput = {
-    create?: XOR<bookingsCreateWithoutTicketInput, bookingsUncheckedCreateWithoutTicketInput> | bookingsCreateWithoutTicketInput[] | bookingsUncheckedCreateWithoutTicketInput[]
-    connectOrCreate?: bookingsCreateOrConnectWithoutTicketInput | bookingsCreateOrConnectWithoutTicketInput[]
-    upsert?: bookingsUpsertWithWhereUniqueWithoutTicketInput | bookingsUpsertWithWhereUniqueWithoutTicketInput[]
-    createMany?: bookingsCreateManyTicketInputEnvelope
-    set?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
-    disconnect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
-    delete?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
-    connect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
-    update?: bookingsUpdateWithWhereUniqueWithoutTicketInput | bookingsUpdateWithWhereUniqueWithoutTicketInput[]
-    updateMany?: bookingsUpdateManyWithWhereWithoutTicketInput | bookingsUpdateManyWithWhereWithoutTicketInput[]
-    deleteMany?: bookingsScalarWhereInput | bookingsScalarWhereInput[]
-  }
-
-  export type bookingsUncheckedUpdateManyWithoutTicketNestedInput = {
-    create?: XOR<bookingsCreateWithoutTicketInput, bookingsUncheckedCreateWithoutTicketInput> | bookingsCreateWithoutTicketInput[] | bookingsUncheckedCreateWithoutTicketInput[]
-    connectOrCreate?: bookingsCreateOrConnectWithoutTicketInput | bookingsCreateOrConnectWithoutTicketInput[]
-    upsert?: bookingsUpsertWithWhereUniqueWithoutTicketInput | bookingsUpsertWithWhereUniqueWithoutTicketInput[]
-    createMany?: bookingsCreateManyTicketInputEnvelope
-    set?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
-    disconnect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
-    delete?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
-    connect?: bookingsWhereUniqueInput | bookingsWhereUniqueInput[]
-    update?: bookingsUpdateWithWhereUniqueWithoutTicketInput | bookingsUpdateWithWhereUniqueWithoutTicketInput[]
-    updateMany?: bookingsUpdateManyWithWhereWithoutTicketInput | bookingsUpdateManyWithWhereWithoutTicketInput[]
-    deleteMany?: bookingsScalarWhereInput | bookingsScalarWhereInput[]
-  }
-
   export type usersCreateNestedOneWithoutBookingsInput = {
     create?: XOR<usersCreateWithoutBookingsInput, usersUncheckedCreateWithoutBookingsInput>
     connectOrCreate?: usersCreateOrConnectWithoutBookingsInput
@@ -19748,12 +19351,6 @@ export namespace Prisma {
     create?: XOR<eventsCreateWithoutBookingsInput, eventsUncheckedCreateWithoutBookingsInput>
     connectOrCreate?: eventsCreateOrConnectWithoutBookingsInput
     connect?: eventsWhereUniqueInput
-  }
-
-  export type ticketsCreateNestedOneWithoutBookingsInput = {
-    create?: XOR<ticketsCreateWithoutBookingsInput, ticketsUncheckedCreateWithoutBookingsInput>
-    connectOrCreate?: ticketsCreateOrConnectWithoutBookingsInput
-    connect?: ticketsWhereUniqueInput
   }
 
   export type paymentsCreateNestedManyWithoutBookingInput = {
@@ -19784,14 +19381,6 @@ export namespace Prisma {
     upsert?: eventsUpsertWithoutBookingsInput
     connect?: eventsWhereUniqueInput
     update?: XOR<XOR<eventsUpdateToOneWithWhereWithoutBookingsInput, eventsUpdateWithoutBookingsInput>, eventsUncheckedUpdateWithoutBookingsInput>
-  }
-
-  export type ticketsUpdateOneRequiredWithoutBookingsNestedInput = {
-    create?: XOR<ticketsCreateWithoutBookingsInput, ticketsUncheckedCreateWithoutBookingsInput>
-    connectOrCreate?: ticketsCreateOrConnectWithoutBookingsInput
-    upsert?: ticketsUpsertWithoutBookingsInput
-    connect?: ticketsWhereUniqueInput
-    update?: XOR<XOR<ticketsUpdateToOneWithWhereWithoutBookingsInput, ticketsUpdateWithoutBookingsInput>, ticketsUncheckedUpdateWithoutBookingsInput>
   }
 
   export type paymentsUpdateManyWithoutBookingNestedInput = {
@@ -20324,11 +19913,15 @@ export namespace Prisma {
     title: string
     description?: string | null
     date: Date | string
+    time: string
+    location: string
+    price: Decimal | DecimalJsLike | number | string
+    total_seats: number
+    available_seats: number
     category: string
+    image?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    venue: venuesCreateNestedOneWithoutEventsInput
-    tickets?: ticketsCreateNestedManyWithoutEventInput
     bookings?: bookingsCreateNestedManyWithoutEventInput
     reviews?: reviewsCreateNestedManyWithoutEventInput
   }
@@ -20338,11 +19931,15 @@ export namespace Prisma {
     title: string
     description?: string | null
     date: Date | string
-    venue_id: number
+    time: string
+    location: string
+    price: Decimal | DecimalJsLike | number | string
+    total_seats: number
+    available_seats: number
     category: string
+    image?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    tickets?: ticketsUncheckedCreateNestedManyWithoutEventInput
     bookings?: bookingsUncheckedCreateNestedManyWithoutEventInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutEventInput
   }
@@ -20363,14 +19960,12 @@ export namespace Prisma {
     booking_date: Date | string
     status: string
     event: eventsCreateNestedOneWithoutBookingsInput
-    ticket: ticketsCreateNestedOneWithoutBookingsInput
     payments?: paymentsCreateNestedManyWithoutBookingInput
   }
 
   export type bookingsUncheckedCreateWithoutUserInput = {
     id?: number
     event_id: number
-    ticket_id: number
     quantity: number
     total_price: Decimal | DecimalJsLike | number | string
     booking_date: Date | string
@@ -20652,9 +20247,14 @@ export namespace Prisma {
     title?: StringFilter<"events"> | string
     description?: StringNullableFilter<"events"> | string | null
     date?: DateTimeFilter<"events"> | Date | string
-    organizer_id?: IntFilter<"events"> | number
-    venue_id?: IntFilter<"events"> | number
+    time?: StringFilter<"events"> | string
+    location?: StringFilter<"events"> | string
+    price?: DecimalFilter<"events"> | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFilter<"events"> | number
+    available_seats?: IntFilter<"events"> | number
     category?: StringFilter<"events"> | string
+    image?: StringNullableFilter<"events"> | string | null
+    organizer_id?: IntFilter<"events"> | number
     created_at?: DateTimeFilter<"events"> | Date | string
     updated_at?: DateTimeFilter<"events"> | Date | string
   }
@@ -20682,7 +20282,6 @@ export namespace Prisma {
     id?: IntFilter<"bookings"> | number
     user_id?: IntFilter<"bookings"> | number
     event_id?: IntFilter<"bookings"> | number
-    ticket_id?: IntFilter<"bookings"> | number
     quantity?: IntFilter<"bookings"> | number
     total_price?: DecimalFilter<"bookings"> | Decimal | DecimalJsLike | number | string
     booking_date?: DateTimeFilter<"bookings"> | Date | string
@@ -20962,75 +20561,18 @@ export namespace Prisma {
     create: XOR<usersCreateWithoutEventsInput, usersUncheckedCreateWithoutEventsInput>
   }
 
-  export type venuesCreateWithoutEventsInput = {
-    name: string
-    address?: string | null
-    city: string
-    capacity: number
-    contact_info?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type venuesUncheckedCreateWithoutEventsInput = {
-    id?: number
-    name: string
-    address?: string | null
-    city: string
-    capacity: number
-    contact_info?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type venuesCreateOrConnectWithoutEventsInput = {
-    where: venuesWhereUniqueInput
-    create: XOR<venuesCreateWithoutEventsInput, venuesUncheckedCreateWithoutEventsInput>
-  }
-
-  export type ticketsCreateWithoutEventInput = {
-    type: string
-    price: Decimal | DecimalJsLike | number | string
-    quantity: number
-    created_at?: Date | string
-    updated_at?: Date | string
-    bookings?: bookingsCreateNestedManyWithoutTicketInput
-  }
-
-  export type ticketsUncheckedCreateWithoutEventInput = {
-    id?: number
-    type: string
-    price: Decimal | DecimalJsLike | number | string
-    quantity: number
-    created_at?: Date | string
-    updated_at?: Date | string
-    bookings?: bookingsUncheckedCreateNestedManyWithoutTicketInput
-  }
-
-  export type ticketsCreateOrConnectWithoutEventInput = {
-    where: ticketsWhereUniqueInput
-    create: XOR<ticketsCreateWithoutEventInput, ticketsUncheckedCreateWithoutEventInput>
-  }
-
-  export type ticketsCreateManyEventInputEnvelope = {
-    data: ticketsCreateManyEventInput | ticketsCreateManyEventInput[]
-    skipDuplicates?: boolean
-  }
-
   export type bookingsCreateWithoutEventInput = {
     quantity: number
     total_price: Decimal | DecimalJsLike | number | string
     booking_date: Date | string
     status: string
     user: usersCreateNestedOneWithoutBookingsInput
-    ticket: ticketsCreateNestedOneWithoutBookingsInput
     payments?: paymentsCreateNestedManyWithoutBookingInput
   }
 
   export type bookingsUncheckedCreateWithoutEventInput = {
     id?: number
     user_id: number
-    ticket_id: number
     quantity: number
     total_price: Decimal | DecimalJsLike | number | string
     booking_date: Date | string
@@ -21125,67 +20667,6 @@ export namespace Prisma {
     claimed_prizes?: claimed_prizesUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type venuesUpsertWithoutEventsInput = {
-    update: XOR<venuesUpdateWithoutEventsInput, venuesUncheckedUpdateWithoutEventsInput>
-    create: XOR<venuesCreateWithoutEventsInput, venuesUncheckedCreateWithoutEventsInput>
-    where?: venuesWhereInput
-  }
-
-  export type venuesUpdateToOneWithWhereWithoutEventsInput = {
-    where?: venuesWhereInput
-    data: XOR<venuesUpdateWithoutEventsInput, venuesUncheckedUpdateWithoutEventsInput>
-  }
-
-  export type venuesUpdateWithoutEventsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    capacity?: IntFieldUpdateOperationsInput | number
-    contact_info?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type venuesUncheckedUpdateWithoutEventsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    capacity?: IntFieldUpdateOperationsInput | number
-    contact_info?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ticketsUpsertWithWhereUniqueWithoutEventInput = {
-    where: ticketsWhereUniqueInput
-    update: XOR<ticketsUpdateWithoutEventInput, ticketsUncheckedUpdateWithoutEventInput>
-    create: XOR<ticketsCreateWithoutEventInput, ticketsUncheckedCreateWithoutEventInput>
-  }
-
-  export type ticketsUpdateWithWhereUniqueWithoutEventInput = {
-    where: ticketsWhereUniqueInput
-    data: XOR<ticketsUpdateWithoutEventInput, ticketsUncheckedUpdateWithoutEventInput>
-  }
-
-  export type ticketsUpdateManyWithWhereWithoutEventInput = {
-    where: ticketsScalarWhereInput
-    data: XOR<ticketsUpdateManyMutationInput, ticketsUncheckedUpdateManyWithoutEventInput>
-  }
-
-  export type ticketsScalarWhereInput = {
-    AND?: ticketsScalarWhereInput | ticketsScalarWhereInput[]
-    OR?: ticketsScalarWhereInput[]
-    NOT?: ticketsScalarWhereInput | ticketsScalarWhereInput[]
-    id?: IntFilter<"tickets"> | number
-    event_id?: IntFilter<"tickets"> | number
-    type?: StringFilter<"tickets"> | string
-    price?: DecimalFilter<"tickets"> | Decimal | DecimalJsLike | number | string
-    quantity?: IntFilter<"tickets"> | number
-    created_at?: DateTimeFilter<"tickets"> | Date | string
-    updated_at?: DateTimeFilter<"tickets"> | Date | string
-  }
-
   export type bookingsUpsertWithWhereUniqueWithoutEventInput = {
     where: bookingsWhereUniqueInput
     update: XOR<bookingsUpdateWithoutEventInput, bookingsUncheckedUpdateWithoutEventInput>
@@ -21216,176 +20697,6 @@ export namespace Prisma {
   export type reviewsUpdateManyWithWhereWithoutEventInput = {
     where: reviewsScalarWhereInput
     data: XOR<reviewsUpdateManyMutationInput, reviewsUncheckedUpdateManyWithoutEventInput>
-  }
-
-  export type eventsCreateWithoutVenueInput = {
-    title: string
-    description?: string | null
-    date: Date | string
-    category: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    organizer: usersCreateNestedOneWithoutEventsInput
-    tickets?: ticketsCreateNestedManyWithoutEventInput
-    bookings?: bookingsCreateNestedManyWithoutEventInput
-    reviews?: reviewsCreateNestedManyWithoutEventInput
-  }
-
-  export type eventsUncheckedCreateWithoutVenueInput = {
-    id?: number
-    title: string
-    description?: string | null
-    date: Date | string
-    organizer_id: number
-    category: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    tickets?: ticketsUncheckedCreateNestedManyWithoutEventInput
-    bookings?: bookingsUncheckedCreateNestedManyWithoutEventInput
-    reviews?: reviewsUncheckedCreateNestedManyWithoutEventInput
-  }
-
-  export type eventsCreateOrConnectWithoutVenueInput = {
-    where: eventsWhereUniqueInput
-    create: XOR<eventsCreateWithoutVenueInput, eventsUncheckedCreateWithoutVenueInput>
-  }
-
-  export type eventsCreateManyVenueInputEnvelope = {
-    data: eventsCreateManyVenueInput | eventsCreateManyVenueInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type eventsUpsertWithWhereUniqueWithoutVenueInput = {
-    where: eventsWhereUniqueInput
-    update: XOR<eventsUpdateWithoutVenueInput, eventsUncheckedUpdateWithoutVenueInput>
-    create: XOR<eventsCreateWithoutVenueInput, eventsUncheckedCreateWithoutVenueInput>
-  }
-
-  export type eventsUpdateWithWhereUniqueWithoutVenueInput = {
-    where: eventsWhereUniqueInput
-    data: XOR<eventsUpdateWithoutVenueInput, eventsUncheckedUpdateWithoutVenueInput>
-  }
-
-  export type eventsUpdateManyWithWhereWithoutVenueInput = {
-    where: eventsScalarWhereInput
-    data: XOR<eventsUpdateManyMutationInput, eventsUncheckedUpdateManyWithoutVenueInput>
-  }
-
-  export type eventsCreateWithoutTicketsInput = {
-    title: string
-    description?: string | null
-    date: Date | string
-    category: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    organizer: usersCreateNestedOneWithoutEventsInput
-    venue: venuesCreateNestedOneWithoutEventsInput
-    bookings?: bookingsCreateNestedManyWithoutEventInput
-    reviews?: reviewsCreateNestedManyWithoutEventInput
-  }
-
-  export type eventsUncheckedCreateWithoutTicketsInput = {
-    id?: number
-    title: string
-    description?: string | null
-    date: Date | string
-    organizer_id: number
-    venue_id: number
-    category: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    bookings?: bookingsUncheckedCreateNestedManyWithoutEventInput
-    reviews?: reviewsUncheckedCreateNestedManyWithoutEventInput
-  }
-
-  export type eventsCreateOrConnectWithoutTicketsInput = {
-    where: eventsWhereUniqueInput
-    create: XOR<eventsCreateWithoutTicketsInput, eventsUncheckedCreateWithoutTicketsInput>
-  }
-
-  export type bookingsCreateWithoutTicketInput = {
-    quantity: number
-    total_price: Decimal | DecimalJsLike | number | string
-    booking_date: Date | string
-    status: string
-    user: usersCreateNestedOneWithoutBookingsInput
-    event: eventsCreateNestedOneWithoutBookingsInput
-    payments?: paymentsCreateNestedManyWithoutBookingInput
-  }
-
-  export type bookingsUncheckedCreateWithoutTicketInput = {
-    id?: number
-    user_id: number
-    event_id: number
-    quantity: number
-    total_price: Decimal | DecimalJsLike | number | string
-    booking_date: Date | string
-    status: string
-    payments?: paymentsUncheckedCreateNestedManyWithoutBookingInput
-  }
-
-  export type bookingsCreateOrConnectWithoutTicketInput = {
-    where: bookingsWhereUniqueInput
-    create: XOR<bookingsCreateWithoutTicketInput, bookingsUncheckedCreateWithoutTicketInput>
-  }
-
-  export type bookingsCreateManyTicketInputEnvelope = {
-    data: bookingsCreateManyTicketInput | bookingsCreateManyTicketInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type eventsUpsertWithoutTicketsInput = {
-    update: XOR<eventsUpdateWithoutTicketsInput, eventsUncheckedUpdateWithoutTicketsInput>
-    create: XOR<eventsCreateWithoutTicketsInput, eventsUncheckedCreateWithoutTicketsInput>
-    where?: eventsWhereInput
-  }
-
-  export type eventsUpdateToOneWithWhereWithoutTicketsInput = {
-    where?: eventsWhereInput
-    data: XOR<eventsUpdateWithoutTicketsInput, eventsUncheckedUpdateWithoutTicketsInput>
-  }
-
-  export type eventsUpdateWithoutTicketsInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    organizer?: usersUpdateOneRequiredWithoutEventsNestedInput
-    venue?: venuesUpdateOneRequiredWithoutEventsNestedInput
-    bookings?: bookingsUpdateManyWithoutEventNestedInput
-    reviews?: reviewsUpdateManyWithoutEventNestedInput
-  }
-
-  export type eventsUncheckedUpdateWithoutTicketsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    organizer_id?: IntFieldUpdateOperationsInput | number
-    venue_id?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    bookings?: bookingsUncheckedUpdateManyWithoutEventNestedInput
-    reviews?: reviewsUncheckedUpdateManyWithoutEventNestedInput
-  }
-
-  export type bookingsUpsertWithWhereUniqueWithoutTicketInput = {
-    where: bookingsWhereUniqueInput
-    update: XOR<bookingsUpdateWithoutTicketInput, bookingsUncheckedUpdateWithoutTicketInput>
-    create: XOR<bookingsCreateWithoutTicketInput, bookingsUncheckedCreateWithoutTicketInput>
-  }
-
-  export type bookingsUpdateWithWhereUniqueWithoutTicketInput = {
-    where: bookingsWhereUniqueInput
-    data: XOR<bookingsUpdateWithoutTicketInput, bookingsUncheckedUpdateWithoutTicketInput>
-  }
-
-  export type bookingsUpdateManyWithWhereWithoutTicketInput = {
-    where: bookingsScalarWhereInput
-    data: XOR<bookingsUpdateManyMutationInput, bookingsUncheckedUpdateManyWithoutTicketInput>
   }
 
   export type usersCreateWithoutBookingsInput = {
@@ -21438,12 +20749,16 @@ export namespace Prisma {
     title: string
     description?: string | null
     date: Date | string
+    time: string
+    location: string
+    price: Decimal | DecimalJsLike | number | string
+    total_seats: number
+    available_seats: number
     category: string
+    image?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     organizer: usersCreateNestedOneWithoutEventsInput
-    venue: venuesCreateNestedOneWithoutEventsInput
-    tickets?: ticketsCreateNestedManyWithoutEventInput
     reviews?: reviewsCreateNestedManyWithoutEventInput
   }
 
@@ -21452,42 +20767,22 @@ export namespace Prisma {
     title: string
     description?: string | null
     date: Date | string
-    organizer_id: number
-    venue_id: number
+    time: string
+    location: string
+    price: Decimal | DecimalJsLike | number | string
+    total_seats: number
+    available_seats: number
     category: string
+    image?: string | null
+    organizer_id: number
     created_at?: Date | string
     updated_at?: Date | string
-    tickets?: ticketsUncheckedCreateNestedManyWithoutEventInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type eventsCreateOrConnectWithoutBookingsInput = {
     where: eventsWhereUniqueInput
     create: XOR<eventsCreateWithoutBookingsInput, eventsUncheckedCreateWithoutBookingsInput>
-  }
-
-  export type ticketsCreateWithoutBookingsInput = {
-    type: string
-    price: Decimal | DecimalJsLike | number | string
-    quantity: number
-    created_at?: Date | string
-    updated_at?: Date | string
-    event: eventsCreateNestedOneWithoutTicketsInput
-  }
-
-  export type ticketsUncheckedCreateWithoutBookingsInput = {
-    id?: number
-    event_id: number
-    type: string
-    price: Decimal | DecimalJsLike | number | string
-    quantity: number
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type ticketsCreateOrConnectWithoutBookingsInput = {
-    where: ticketsWhereUniqueInput
-    create: XOR<ticketsCreateWithoutBookingsInput, ticketsUncheckedCreateWithoutBookingsInput>
   }
 
   export type paymentsCreateWithoutBookingInput = {
@@ -21582,12 +20877,16 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFieldUpdateOperationsInput | number
+    available_seats?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     organizer?: usersUpdateOneRequiredWithoutEventsNestedInput
-    venue?: venuesUpdateOneRequiredWithoutEventsNestedInput
-    tickets?: ticketsUpdateManyWithoutEventNestedInput
     reviews?: reviewsUpdateManyWithoutEventNestedInput
   }
 
@@ -21596,43 +20895,17 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    organizer_id?: IntFieldUpdateOperationsInput | number
-    venue_id?: IntFieldUpdateOperationsInput | number
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFieldUpdateOperationsInput | number
+    available_seats?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizer_id?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    tickets?: ticketsUncheckedUpdateManyWithoutEventNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutEventNestedInput
-  }
-
-  export type ticketsUpsertWithoutBookingsInput = {
-    update: XOR<ticketsUpdateWithoutBookingsInput, ticketsUncheckedUpdateWithoutBookingsInput>
-    create: XOR<ticketsCreateWithoutBookingsInput, ticketsUncheckedCreateWithoutBookingsInput>
-    where?: ticketsWhereInput
-  }
-
-  export type ticketsUpdateToOneWithWhereWithoutBookingsInput = {
-    where?: ticketsWhereInput
-    data: XOR<ticketsUpdateWithoutBookingsInput, ticketsUncheckedUpdateWithoutBookingsInput>
-  }
-
-  export type ticketsUpdateWithoutBookingsInput = {
-    type?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    event?: eventsUpdateOneRequiredWithoutTicketsNestedInput
-  }
-
-  export type ticketsUncheckedUpdateWithoutBookingsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    event_id?: IntFieldUpdateOperationsInput | number
-    type?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type paymentsUpsertWithWhereUniqueWithoutBookingInput = {
@@ -21670,14 +20943,12 @@ export namespace Prisma {
     status: string
     user: usersCreateNestedOneWithoutBookingsInput
     event: eventsCreateNestedOneWithoutBookingsInput
-    ticket: ticketsCreateNestedOneWithoutBookingsInput
   }
 
   export type bookingsUncheckedCreateWithoutPaymentsInput = {
     id?: number
     user_id: number
     event_id: number
-    ticket_id: number
     quantity: number
     total_price: Decimal | DecimalJsLike | number | string
     booking_date: Date | string
@@ -21707,14 +20978,12 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     user?: usersUpdateOneRequiredWithoutBookingsNestedInput
     event?: eventsUpdateOneRequiredWithoutBookingsNestedInput
-    ticket?: ticketsUpdateOneRequiredWithoutBookingsNestedInput
   }
 
   export type bookingsUncheckedUpdateWithoutPaymentsInput = {
     id?: IntFieldUpdateOperationsInput | number
     user_id?: IntFieldUpdateOperationsInput | number
     event_id?: IntFieldUpdateOperationsInput | number
-    ticket_id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21725,12 +20994,16 @@ export namespace Prisma {
     title: string
     description?: string | null
     date: Date | string
+    time: string
+    location: string
+    price: Decimal | DecimalJsLike | number | string
+    total_seats: number
+    available_seats: number
     category: string
+    image?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     organizer: usersCreateNestedOneWithoutEventsInput
-    venue: venuesCreateNestedOneWithoutEventsInput
-    tickets?: ticketsCreateNestedManyWithoutEventInput
     bookings?: bookingsCreateNestedManyWithoutEventInput
   }
 
@@ -21739,12 +21012,16 @@ export namespace Prisma {
     title: string
     description?: string | null
     date: Date | string
-    organizer_id: number
-    venue_id: number
+    time: string
+    location: string
+    price: Decimal | DecimalJsLike | number | string
+    total_seats: number
+    available_seats: number
     category: string
+    image?: string | null
+    organizer_id: number
     created_at?: Date | string
     updated_at?: Date | string
-    tickets?: ticketsUncheckedCreateNestedManyWithoutEventInput
     bookings?: bookingsUncheckedCreateNestedManyWithoutEventInput
   }
 
@@ -21814,12 +21091,16 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFieldUpdateOperationsInput | number
+    available_seats?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     organizer?: usersUpdateOneRequiredWithoutEventsNestedInput
-    venue?: venuesUpdateOneRequiredWithoutEventsNestedInput
-    tickets?: ticketsUpdateManyWithoutEventNestedInput
     bookings?: bookingsUpdateManyWithoutEventNestedInput
   }
 
@@ -21828,12 +21109,16 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    organizer_id?: IntFieldUpdateOperationsInput | number
-    venue_id?: IntFieldUpdateOperationsInput | number
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFieldUpdateOperationsInput | number
+    available_seats?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    organizer_id?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    tickets?: ticketsUncheckedUpdateManyWithoutEventNestedInput
     bookings?: bookingsUncheckedUpdateManyWithoutEventNestedInput
   }
 
@@ -22392,8 +21677,13 @@ export namespace Prisma {
     title: string
     description?: string | null
     date: Date | string
-    venue_id: number
+    time: string
+    location: string
+    price: Decimal | DecimalJsLike | number | string
+    total_seats: number
+    available_seats: number
     category: string
+    image?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -22401,7 +21691,6 @@ export namespace Prisma {
   export type bookingsCreateManyUserInput = {
     id?: number
     event_id: number
-    ticket_id: number
     quantity: number
     total_price: Decimal | DecimalJsLike | number | string
     booking_date: Date | string
@@ -22527,11 +21816,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFieldUpdateOperationsInput | number
+    available_seats?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    venue?: venuesUpdateOneRequiredWithoutEventsNestedInput
-    tickets?: ticketsUpdateManyWithoutEventNestedInput
     bookings?: bookingsUpdateManyWithoutEventNestedInput
     reviews?: reviewsUpdateManyWithoutEventNestedInput
   }
@@ -22541,11 +21834,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    venue_id?: IntFieldUpdateOperationsInput | number
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFieldUpdateOperationsInput | number
+    available_seats?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    tickets?: ticketsUncheckedUpdateManyWithoutEventNestedInput
     bookings?: bookingsUncheckedUpdateManyWithoutEventNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutEventNestedInput
   }
@@ -22555,8 +21852,13 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    venue_id?: IntFieldUpdateOperationsInput | number
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total_seats?: IntFieldUpdateOperationsInput | number
+    available_seats?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22567,14 +21869,12 @@ export namespace Prisma {
     booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     event?: eventsUpdateOneRequiredWithoutBookingsNestedInput
-    ticket?: ticketsUpdateOneRequiredWithoutBookingsNestedInput
     payments?: paymentsUpdateManyWithoutBookingNestedInput
   }
 
   export type bookingsUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     event_id?: IntFieldUpdateOperationsInput | number
-    ticket_id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22585,7 +21885,6 @@ export namespace Prisma {
   export type bookingsUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     event_id?: IntFieldUpdateOperationsInput | number
-    ticket_id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22713,19 +22012,9 @@ export namespace Prisma {
     claimed_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ticketsCreateManyEventInput = {
-    id?: number
-    type: string
-    price: Decimal | DecimalJsLike | number | string
-    quantity: number
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
   export type bookingsCreateManyEventInput = {
     id?: number
     user_id: number
-    ticket_id: number
     quantity: number
     total_price: Decimal | DecimalJsLike | number | string
     booking_date: Date | string
@@ -22740,48 +22029,18 @@ export namespace Prisma {
     created_at?: Date | string
   }
 
-  export type ticketsUpdateWithoutEventInput = {
-    type?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    bookings?: bookingsUpdateManyWithoutTicketNestedInput
-  }
-
-  export type ticketsUncheckedUpdateWithoutEventInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    type?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    bookings?: bookingsUncheckedUpdateManyWithoutTicketNestedInput
-  }
-
-  export type ticketsUncheckedUpdateManyWithoutEventInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    type?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type bookingsUpdateWithoutEventInput = {
     quantity?: IntFieldUpdateOperationsInput | number
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     user?: usersUpdateOneRequiredWithoutBookingsNestedInput
-    ticket?: ticketsUpdateOneRequiredWithoutBookingsNestedInput
     payments?: paymentsUpdateManyWithoutBookingNestedInput
   }
 
   export type bookingsUncheckedUpdateWithoutEventInput = {
     id?: IntFieldUpdateOperationsInput | number
     user_id?: IntFieldUpdateOperationsInput | number
-    ticket_id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22792,7 +22051,6 @@ export namespace Prisma {
   export type bookingsUncheckedUpdateManyWithoutEventInput = {
     id?: IntFieldUpdateOperationsInput | number
     user_id?: IntFieldUpdateOperationsInput | number
-    ticket_id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22820,96 +22078,6 @@ export namespace Prisma {
     rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type eventsCreateManyVenueInput = {
-    id?: number
-    title: string
-    description?: string | null
-    date: Date | string
-    organizer_id: number
-    category: string
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type eventsUpdateWithoutVenueInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    organizer?: usersUpdateOneRequiredWithoutEventsNestedInput
-    tickets?: ticketsUpdateManyWithoutEventNestedInput
-    bookings?: bookingsUpdateManyWithoutEventNestedInput
-    reviews?: reviewsUpdateManyWithoutEventNestedInput
-  }
-
-  export type eventsUncheckedUpdateWithoutVenueInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    organizer_id?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    tickets?: ticketsUncheckedUpdateManyWithoutEventNestedInput
-    bookings?: bookingsUncheckedUpdateManyWithoutEventNestedInput
-    reviews?: reviewsUncheckedUpdateManyWithoutEventNestedInput
-  }
-
-  export type eventsUncheckedUpdateManyWithoutVenueInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    organizer_id?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type bookingsCreateManyTicketInput = {
-    id?: number
-    user_id: number
-    event_id: number
-    quantity: number
-    total_price: Decimal | DecimalJsLike | number | string
-    booking_date: Date | string
-    status: string
-  }
-
-  export type bookingsUpdateWithoutTicketInput = {
-    quantity?: IntFieldUpdateOperationsInput | number
-    total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
-    user?: usersUpdateOneRequiredWithoutBookingsNestedInput
-    event?: eventsUpdateOneRequiredWithoutBookingsNestedInput
-    payments?: paymentsUpdateManyWithoutBookingNestedInput
-  }
-
-  export type bookingsUncheckedUpdateWithoutTicketInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    user_id?: IntFieldUpdateOperationsInput | number
-    event_id?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
-    payments?: paymentsUncheckedUpdateManyWithoutBookingNestedInput
-  }
-
-  export type bookingsUncheckedUpdateManyWithoutTicketInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    user_id?: IntFieldUpdateOperationsInput | number
-    event_id?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    total_price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type paymentsCreateManyBookingInput = {

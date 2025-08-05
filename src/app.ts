@@ -8,10 +8,13 @@ import express, {
 	Router,
 } from 'express';
 import cors from 'cors';
+import path from 'path';
 import { PORT } from './config';
 import { AuthRouter } from './routers/auth.router';
 import referralRouter from './routers/referral.router';
 import profileRouter from './routers/profile.router';
+import eventsRouter from './routers/events.router';
+import uploadRouter from './routers/upload.router';
 import { AppError } from './utils/app.error';
 
 export default class App {
@@ -27,14 +30,27 @@ export default class App {
 	private configure(): void {
 		this.app.use(
 			cors({
-				origin: ['http://localhost:3000', 'http://localhost:3001'],
+				origin: [
+					'http://localhost:3000',
+					'http://localhost:8000',
+					'http://127.0.0.1:3000',
+					'http://localhost:3001',
+					'https://hiburan-app-web.vercel.app',
+					'https://hiburan-app-web-git-master-aditmaramiss-projects.vercel.app',
+					'https://hiburan-app-web-jjn7p2vz0-aditmaramiss-projects.vercel.app',
+				],
 				credentials: true,
-				methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-				allowedHeaders: ['Content-Type', 'Authorization'],
 			})
 		);
+
 		this.app.use(json());
 		this.app.use(urlencoded({ extended: true }));
+
+		// Serve static files from uploads directory
+		this.app.use(
+			'/uploads',
+			express.static(path.join(__dirname, '../uploads'))
+		);
 	}
 
 	private handleError(): void {
@@ -89,6 +105,8 @@ export default class App {
 		this.app.use('/api/auth', authRouter.getRouter());
 		this.app.use('/api/referral', referralRouter);
 		this.app.use('/api/profile', profileRouter);
+		this.app.use('/api/events', eventsRouter);
+		this.app.use('/api/upload', uploadRouter);
 	}
 
 	public start(): void {
