@@ -1,20 +1,9 @@
 import { Router } from 'express';
-import { AuthRouter } from './auth.router';
-import referralRouter from './referral.router';
-import profileRouter from './profile.router';
+import enhancedBookingsRouter from './enhanced-bookings.router';
 
 const router = Router();
 
-// Initialize class-based routers
-const authRouter = new AuthRouter();
-
-// Auth routes
-router.use('/auth', authRouter.getRouter());
-
-// Referral system routes
-router.use('/referral', referralRouter);
-
-// Profile management routes
-router.use('/profile', profileRouter);
+// Mount enhanced transaction system
+router.use('/api/v1/enhanced', enhancedBookingsRouter);
 
 export default router;
