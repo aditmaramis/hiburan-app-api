@@ -1,86 +1,123 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  // directUrl = env("DIRECT_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
 }
 
-enum Role {
-  customer
-  organizer
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model users {
-  id              Int      @id @default(autoincrement())
-  name            String?
-  email           String   @unique
-  password        String
-  role            Role     @default(customer)
-  profile_picture String?
-  referral_code   String   @unique
-  referred_by_id  Int?
-  referred_by     users?  @relation("UserReferrals", fields: [referred_by_id], references: [id])
-  referred_users  users[] @relation("UserReferrals")
-  created_at      DateTime @default(now())
-  updated_at      DateTime @updatedAt
-  password_resets password_resets[]
-  events          events[] @relation("OrganizerEvents")
+model bookings {
+  id           Int        @id @default(autoincrement())
+  user_id      Int
+  event_id     Int
+  quantity     Int
+  total_price  Decimal
+  booking_date DateTime
+  status       String
+  currency     Currency   @default(IDR)
+  events       events     @relation(fields: [event_id], references: [id])
+  users        users      @relation(fields: [user_id], references: [id])
+  payments     payments[]
+}
+
+model claimed_prizes {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  prize_id   Int
+  claimed_at DateTime
+  prizes     prizes   @relation(fields: [prize_id], references: [id])
+  users      users    @relation(fields: [user_id], references: [id])
+}
+
+model coupons {
+  id               Int      @id @default(autoincrement())
+  code             String   @unique
+  user_id          Int
+  discount_percent Int
+  issued_at        DateTime
+  expires_at       DateTime
+  is_used          Boolean  @default(false)
+  source           String?
+  users            users    @relation(fields: [user_id], references: [id])
+}
+
+model events {
+  id              Int        @id @default(autoincrement())
+  title           String
+  description     String?
+  date            DateTime
+  organizer_id    Int
+  category        String
+  created_at      DateTime   @default(now())
+  updated_at      DateTime
+  available_seats Int
+  image           String?
+  location        String
+  price           Decimal
+  time            String
+  total_seats     Int
+  currency        Currency   @default(IDR)
   bookings        bookings[]
+  users           users      @relation(fields: [organizer_id], references: [id])
   reviews         reviews[]
-  coupons         coupons[]
-  referral_points referral_points[] @relation("ReferrerPoints")
-  referral_points_referred referral_points[] @relation("ReferredUserPoints")
-  claimed_prizes  claimed_prizes[]
 }
 
 model password_resets {
   id         Int      @id @default(autoincrement())
   user_id    Int
-  user       users    @relation(fields: [user_id], references: [id])
   token      String   @unique
   expires_at DateTime
   created_at DateTime @default(now())
+  users      users    @relation(fields: [user_id], references: [id])
 }
 
-model events {
-  id           Int      @id @default(autoincrement())
-  title        String
-  description  String?
-  date         DateTime
-  time         String
-  location     String
-  price        Decimal
-  total_seats  Int
-  available_seats Int
-  category     String
-  image        String?
-  organizer_id Int
-  organizer    users    @relation("OrganizerEvents", fields: [organizer_id], references: [id])
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
-  bookings     bookings[]
-  reviews      reviews[]
+model payments {
+  id             Int      @id @default(autoincrement())
+  booking_id     Int
+  amount         Decimal
+  payment_method String
+  payment_date   DateTime
+  status         String
+  created_at     DateTime @default(now())
+  payment_proof  String?
+  updated_at     DateTime
+  currency       Currency @default(IDR)
+  bookings       bookings @relation(fields: [booking_id], references: [id])
 }
 
-model venues {
-  id          Int      @id @default(autoincrement())
-  name        String
-  address     String?
-  city        String
-  capacity    Int
-  contact_info String?
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+model prizes {
+  id              Int              @id @default(autoincrement())
+  name            String
+  description     String?
+  points_required Int
+  stock           Int
+  created_at      DateTime         @default(now())
+  claimed_prizes  claimed_prizes[]
+}
+
+model referral_points {
+  id                                            Int      @id @default(autoincrement())
+  user_id                                       Int
+  points                                        Int
+  earned_at                                     DateTime
+  expires_at                                    DateTime
+  used                                          Boolean  @default(false)
+  referred_user_id                              Int
+  users_referral_points_referred_user_idTousers users    @relation("referral_points_referred_user_idTousers", fields: [referred_user_id], references: [id])
+  users_referral_points_user_idTousers          users    @relation("referral_points_user_idTousers", fields: [user_id], references: [id])
+}
+
+model reviews {
+  id         Int      @id @default(autoincrement())
+  event_id   Int
+  user_id    Int
+  rating     Int
+  comment    String?
+  created_at DateTime @default(now())
+  events     events   @relation(fields: [event_id], references: [id])
+  users      users    @relation(fields: [user_id], references: [id])
 }
 
 model tickets {
@@ -89,82 +126,49 @@ model tickets {
   price      Decimal
   quantity   Int
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  updated_at DateTime
 }
 
-model bookings {
-  id          Int      @id @default(autoincrement())
-  user_id     Int
-  user        users    @relation(fields: [user_id], references: [id])
-  event_id    Int
-  event       events   @relation(fields: [event_id], references: [id])
-  quantity    Int
-  total_price Decimal
-  booking_date DateTime
-  status      String
-  payments    payments[]
+model users {
+  id                                                      Int               @id @default(autoincrement())
+  name                                                    String?
+  email                                                   String            @unique
+  password                                                String
+  role                                                    Role              @default(customer)
+  profile_picture                                         String?
+  referral_code                                           String            @unique
+  referred_by_id                                          Int?
+  created_at                                              DateTime          @default(now())
+  updated_at                                              DateTime
+  bookings                                                bookings[]
+  claimed_prizes                                          claimed_prizes[]
+  coupons                                                 coupons[]
+  events                                                  events[]
+  password_resets                                         password_resets[]
+  referral_points_referral_points_referred_user_idTousers referral_points[] @relation("referral_points_referred_user_idTousers")
+  referral_points_referral_points_user_idTousers          referral_points[] @relation("referral_points_user_idTousers")
+  reviews                                                 reviews[]
+  users                                                   users?            @relation("usersTousers", fields: [referred_by_id], references: [id])
+  other_users                                             users[]           @relation("usersTousers")
 }
 
-model payments {
-  id             Int      @id @default(autoincrement())
-  booking_id     Int
-  booking        bookings @relation(fields: [booking_id], references: [id])
-  amount         Decimal
-  payment_method String
-  payment_date   DateTime
-  status         String
+model venues {
+  id           Int      @id @default(autoincrement())
+  name         String
+  address      String?
+  city         String
+  capacity     Int
+  contact_info String?
+  created_at   DateTime @default(now())
+  updated_at   DateTime
 }
 
-model reviews {
-  id         Int      @id @default(autoincrement())
-  event_id   Int
-  event      events   @relation(fields: [event_id], references: [id])
-  user_id    Int
-  user       users    @relation(fields: [user_id], references: [id])
-  rating     Int
-  comment    String?
-  created_at DateTime @default(now())
+enum Currency {
+  USD
+  IDR
 }
 
-model coupons {
-  id              Int      @id @default(autoincrement())
-  code            String   @unique
-  user_id         Int
-  user            users    @relation(fields: [user_id], references: [id])
-  discount_percent Int
-  issued_at       DateTime
-  expires_at      DateTime
-  is_used         Boolean  @default(false)
-  source          String?
-}
-
-model referral_points {
-  id               Int      @id @default(autoincrement())
-  user_id          Int
-  user             users    @relation("ReferrerPoints", fields: [user_id], references: [id])
-  points           Int
-  earned_at        DateTime
-  expires_at       DateTime
-  used             Boolean  @default(false)
-  referred_user_id Int
-  referred_user    users    @relation("ReferredUserPoints", fields: [referred_user_id], references: [id])
-}
-
-model prizes {
-  id             Int      @id @default(autoincrement())
-  name           String
-  description    String?
-  points_required Int
-  stock          Int
-  created_at     DateTime @default(now())
-  claimed_prizes claimed_prizes[]
-}
-
-model claimed_prizes {
-  id         Int      @id @default(autoincrement())
-  user_id    Int
-  user       users    @relation(fields: [user_id], references: [id])
-  prize_id   Int
-  prize      prizes   @relation(fields: [prize_id], references: [id])
-  claimed_at DateTime
+enum Role {
+  customer
+  organizer
 }

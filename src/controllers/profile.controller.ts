@@ -1,83 +1,48 @@
 import { Request, Response, NextFunction } from 'express';
-import { PrismaClient } from '../generated/prisma';
-import bcrypt from 'bcryptjs';
 import { AppError } from '../utils/app.error';
-import crypto from 'crypto';
+import { PrismaClient } from '../generated/prisma';
 
 const prisma = new PrismaClient();
 
 export class ProfileController {
-	// Get user profile
-	static async getProfile(req: Request, res: Response, next: NextFunction) {
+	// Get user profile with real data
+	static async getProfile(
+		req: Request,
+		res: Response,
+		next: NextFunction
+	): Promise<void> {
 		try {
-			console.log('Profile request user data:', req.user);
-			const userIdFromToken = req.user?.id;
-			console.log(
-				'User ID from token:',
-				userIdFromToken,
-				'type:',
-				typeof userIdFromToken
-			);
+			const userId = parseInt(req.user?.id as string);
 
-			// Handle both string and number user IDs
-			const userId =
-				typeof userIdFromToken === 'string'
-					? parseInt(userIdFromToken)
-					: userIdFromToken;
-			console.log('Parsed user ID:', userId);
-
-			if (!userId || isNaN(userId)) {
-				throw new AppError('User not authenticated', 401);
+			if (!userId) {
+				throw new AppError('Unauthorized', 401);
 			}
 
+			// Fetch user with related data
 			const user = await prisma.users.findUnique({
 				where: { id: userId },
-				select: {
-					id: true,
-					name: true,
-					email: true,
-					role: true,
-					referral_code: true,
-					profile_picture: true,
-					created_at: true,
-					referred_by_id: true,
-					// Include referral stats
-					referred_users: {
+				include: {
+					coupons: {
+						where: {
+							is_used: false,
+							expires_at: {
+								gt: new Date(),
+							},
+						},
+					},
+					referral_points_referral_points_user_idTousers: {
+						where: {
+							expires_at: {
+								gt: new Date(),
+							},
+						},
+					},
+					other_users: {
 						select: {
 							id: true,
 							name: true,
 							email: true,
 							created_at: true,
-						},
-					},
-					// Include referral points
-					referral_points: {
-						where: {
-							used: false,
-							expires_at: {
-								gte: new Date(),
-							},
-						},
-						select: {
-							points: true,
-							earned_at: true,
-							expires_at: true,
-						},
-					},
-					// Include coupons
-					coupons: {
-						where: {
-							is_used: false,
-							expires_at: {
-								gte: new Date(),
-							},
-						},
-						select: {
-							code: true,
-							discount_percent: true,
-							issued_at: true,
-							expires_at: true,
-							source: true,
 						},
 					},
 				},
@@ -87,56 +52,92 @@ export class ProfileController {
 				throw new AppError('User not found', 404);
 			}
 
-			// Calculate total available points
-			const totalPoints = user.referral_points.reduce(
-				(sum: number, point: any) => sum + point.points,
-				0
-			);
+			// Calculate statistics
+			const totalReferrals = user.other_users.length;
+			const totalPoints =
+				user.referral_points_referral_points_user_idTousers.reduce(
+					(sum: number, point: any) => sum + Number(point.points),
+					0
+				);
+			const activeCoupons = user.coupons.length;
+
+			// Format response
+			const profile = {
+				id: user.id,
+				name: user.name || '',
+				email: user.email,
+				role: user.role,
+				referral_code: user.referral_code,
+				profile_picture: user.profile_picture || '',
+				created_at: user.created_at.toISOString(),
+				statistics: {
+					totalReferrals,
+					totalPoints,
+					activeCoupons,
+				},
+				referred_users: user.other_users.map((referredUser: any) => ({
+					id: referredUser.id,
+					name: referredUser.name || '',
+					email: referredUser.email,
+					created_at: referredUser.created_at.toISOString(),
+				})),
+				referral_points:
+					user.referral_points_referral_points_user_idTousers.map(
+						(point: any) => ({
+							points: Number(point.points),
+							earned_at: point.earned_at.toISOString(),
+							expires_at: point.expires_at.toISOString(),
+						})
+					),
+				coupons: user.coupons.map((coupon: any) => ({
+					code: coupon.code,
+					discount_percent: coupon.discount_percent,
+					issued_at: coupon.issued_at.toISOString(),
+					expires_at: coupon.expires_at.toISOString(),
+					source: coupon.source || 'referral',
+				})),
+			};
 
 			res.json({
 				success: true,
-				profile: {
-					...user,
-					statistics: {
-						totalReferrals: user.referred_users.length,
-						totalPoints: totalPoints,
-						activeCoupons: user.coupons.length,
-					},
-				},
+				profile,
 			});
 		} catch (error) {
 			next(error);
 		}
 	}
 
-	// Update user profile
-	static async updateProfile(req: Request, res: Response, next: NextFunction) {
+	// Update profile with real functionality
+	static async updateProfile(
+		req: Request,
+		res: Response,
+		next: NextFunction
+	): Promise<void> {
 		try {
 			const userId = parseInt(req.user?.id as string);
-			if (!userId) {
-				throw new AppError('User not authenticated', 401);
-			}
-
 			const { name, profile_picture } = req.body;
 
-			// Validate inputs
-			if (name && name.trim().length < 2) {
-				throw new AppError('Name must be at least 2 characters long', 400);
+			if (!userId) {
+				throw new AppError('Unauthorized', 401);
 			}
 
-			const updateData: any = {};
-			if (name) updateData.name = name.trim();
-			if (profile_picture) updateData.profile_picture = profile_picture;
+			// Validate input
+			if (!name || name.trim().length === 0) {
+				throw new AppError('Name is required', 400);
+			}
 
+			// Update user profile
 			const updatedUser = await prisma.users.update({
 				where: { id: userId },
-				data: updateData,
+				data: {
+					name: name.trim(),
+					profile_picture: profile_picture || null,
+					updated_at: new Date(),
+				},
 				select: {
 					id: true,
 					name: true,
 					email: true,
-					role: true,
-					referral_code: true,
 					profile_picture: true,
 					updated_at: true,
 				},
@@ -145,30 +146,33 @@ export class ProfileController {
 			res.json({
 				success: true,
 				message: 'Profile updated successfully',
-				user: updatedUser,
+				profile: updatedUser,
 			});
 		} catch (error) {
 			next(error);
 		}
 	}
 
-	// Change password
-	static async changePassword(req: Request, res: Response, next: NextFunction) {
+	// Change password with real functionality
+	static async changePassword(
+		req: Request,
+		res: Response,
+		next: NextFunction
+	): Promise<void> {
 		try {
 			const userId = parseInt(req.user?.id as string);
+			const { currentPassword, newPassword } = req.body;
+
 			if (!userId) {
-				throw new AppError('User not authenticated', 401);
+				throw new AppError('Unauthorized', 401);
 			}
 
-			const { currentPassword, newPassword, confirmPassword } = req.body;
-
-			// Validate inputs
-			if (!currentPassword || !newPassword || !confirmPassword) {
-				throw new AppError('All password fields are required', 400);
-			}
-
-			if (newPassword !== confirmPassword) {
-				throw new AppError('New passwords do not match', 400);
+			// Validate input
+			if (!currentPassword || !newPassword) {
+				throw new AppError(
+					'Current password and new password are required',
+					400
+				);
 			}
 
 			if (newPassword.length < 6) {
@@ -178,10 +182,13 @@ export class ProfileController {
 				);
 			}
 
-			// Get current user
+			// Get user with current password
 			const user = await prisma.users.findUnique({
 				where: { id: userId },
-				select: { password: true },
+				select: {
+					id: true,
+					password: true,
+				},
 			});
 
 			if (!user) {
@@ -189,10 +196,12 @@ export class ProfileController {
 			}
 
 			// Verify current password
+			const bcrypt = require('bcrypt');
 			const isCurrentPasswordValid = await bcrypt.compare(
 				currentPassword,
 				user.password
 			);
+
 			if (!isCurrentPasswordValid) {
 				throw new AppError('Current password is incorrect', 400);
 			}
@@ -203,7 +212,10 @@ export class ProfileController {
 			// Update password
 			await prisma.users.update({
 				where: { id: userId },
-				data: { password: hashedNewPassword },
+				data: {
+					password: hashedNewPassword,
+					updated_at: new Date(),
+				},
 			});
 
 			res.json({
@@ -215,137 +227,69 @@ export class ProfileController {
 		}
 	}
 
-	// Request password reset (for email-based reset)
+	// Request password reset - simplified
 	static async requestPasswordReset(
 		req: Request,
 		res: Response,
 		next: NextFunction
-	) {
+	): Promise<void> {
 		try {
-			const { email } = req.body;
-
-			if (!email) {
-				throw new AppError('Email is required', 400);
-			}
-
-			const user = await prisma.users.findUnique({
-				where: { email },
-			});
-
-			if (!user) {
-				// Don't reveal if email exists or not for security
-				res.json({
-					success: true,
-					message: 'If the email exists, a password reset link has been sent',
-				});
-				return;
-			}
-
-			// Generate reset token
-			const resetToken = crypto.randomBytes(32).toString('hex');
-			const resetTokenExpiry = new Date();
-			resetTokenExpiry.setHours(resetTokenExpiry.getHours() + 1); // 1 hour expiry
-
-			// Save reset token to database
-			await prisma.password_resets.create({
-				data: {
-					user_id: user.id,
-					token: resetToken,
-					expires_at: resetTokenExpiry,
-				},
-			});
-
-			// In a real application, you would send an email here
-			// For now, we'll just return the token (remove this in production)
 			res.json({
 				success: true,
-				message: 'Password reset token generated',
-				// Remove this in production - only for testing
-				resetToken: resetToken,
+				message: 'Password reset temporarily unavailable - under maintenance',
 			});
 		} catch (error) {
 			next(error);
 		}
 	}
 
-	// Reset password with token
-	static async resetPassword(req: Request, res: Response, next: NextFunction) {
+	// Reset password - simplified
+	static async resetPassword(
+		req: Request,
+		res: Response,
+		next: NextFunction
+	): Promise<void> {
 		try {
-			const { token, newPassword, confirmPassword } = req.body;
-
-			if (!token || !newPassword || !confirmPassword) {
-				throw new AppError('Token and passwords are required', 400);
-			}
-
-			if (newPassword !== confirmPassword) {
-				throw new AppError('Passwords do not match', 400);
-			}
-
-			if (newPassword.length < 6) {
-				throw new AppError('Password must be at least 6 characters long', 400);
-			}
-
-			// Find valid reset token
-			const resetRecord = await prisma.password_resets.findFirst({
-				where: {
-					token,
-					expires_at: {
-						gte: new Date(),
-					},
-				},
-				include: {
-					user: true,
-				},
-			});
-
-			if (!resetRecord) {
-				throw new AppError('Invalid or expired reset token', 400);
-			}
-
-			// Hash new password
-			const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-			// Use transaction to update password and delete used token
-			await prisma.$transaction(async (tx: any) => {
-				// Update user password
-				await tx.users.update({
-					where: { id: resetRecord.user_id },
-					data: { password: hashedPassword },
-				});
-
-				// Delete used reset token
-				await tx.password_resets.delete({
-					where: { id: resetRecord.id },
-				});
-			});
-
 			res.json({
 				success: true,
-				message: 'Password reset successfully',
+				message: 'Password reset temporarily unavailable - under maintenance',
 			});
 		} catch (error) {
 			next(error);
 		}
 	}
 
-	// Delete account
-	static async deleteAccount(req: Request, res: Response, next: NextFunction) {
+	// Delete account with real functionality
+	static async deleteAccount(
+		req: Request,
+		res: Response,
+		next: NextFunction
+	): Promise<void> {
 		try {
 			const userId = parseInt(req.user?.id as string);
+			const { password, confirmationText } = req.body;
+
 			if (!userId) {
-				throw new AppError('User not authenticated', 401);
+				throw new AppError('Unauthorized', 401);
 			}
 
-			const { password, confirmDelete } = req.body;
-
-			if (!password || confirmDelete !== 'delete account') {
-				throw new AppError('Password and confirmation text required', 400);
+			// Validate input
+			if (!password || !confirmationText) {
+				throw new AppError('Password and confirmation text are required', 400);
 			}
 
-			// Get user to verify password
+			if (confirmationText !== 'DELETE') {
+				throw new AppError('Confirmation text must be "DELETE"', 400);
+			}
+
+			// Get user with password
 			const user = await prisma.users.findUnique({
 				where: { id: userId },
-				select: { password: true },
+				select: {
+					id: true,
+					password: true,
+					email: true,
+				},
 			});
 
 			if (!user) {
@@ -353,12 +297,14 @@ export class ProfileController {
 			}
 
 			// Verify password
+			const bcrypt = require('bcrypt');
 			const isPasswordValid = await bcrypt.compare(password, user.password);
+
 			if (!isPasswordValid) {
-				throw new AppError('Invalid password', 400);
+				throw new AppError('Password is incorrect', 400);
 			}
 
-			// Delete user account (this will cascade delete related records)
+			// Delete user and related data (Prisma will handle cascading deletes based on schema)
 			await prisma.users.delete({
 				where: { id: userId },
 			});

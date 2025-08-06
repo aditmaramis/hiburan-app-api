@@ -15,6 +15,10 @@ import referralRouter from './routers/referral.router';
 import profileRouter from './routers/profile.router';
 import eventsRouter from './routers/events.router';
 import uploadRouter from './routers/upload.router';
+import transactionsRouter from './routers/transactions.router';
+import bookingsRouter from './routers/bookings.router';
+import statisticsRouter from './routers/statistics.router';
+import mainRouter from './routers/index';
 import { AppError } from './utils/app.error';
 
 export default class App {
@@ -107,6 +111,12 @@ export default class App {
 		this.app.use('/api/profile', profileRouter);
 		this.app.use('/api/events', eventsRouter);
 		this.app.use('/api/upload', uploadRouter);
+		this.app.use('/api/transactions', transactionsRouter);
+		this.app.use('/api/bookings', bookingsRouter);
+		this.app.use('/api/statistics', statisticsRouter);
+
+		// Enhanced booking system with v1 prefix
+		this.app.use(mainRouter);
 	}
 
 	public start(): void {

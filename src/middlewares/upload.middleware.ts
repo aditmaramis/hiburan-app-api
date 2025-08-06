@@ -39,6 +39,21 @@ const profileStorage = multer.diskStorage({
 	},
 });
 
+// Storage configuration for payment proofs
+const paymentProofStorage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		const uploadPath = path.join(__dirname, '../../uploads/payment-proofs');
+		ensureDirectoryExists(uploadPath);
+		cb(null, uploadPath);
+	},
+	filename: (req, file, cb) => {
+		// Generate unique filename
+		const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+		const extension = path.extname(file.originalname);
+		cb(null, `payment-proof-${uniqueSuffix}${extension}`);
+	},
+});
+
 // File filter for images only
 const imageFilter = (
 	req: any,
@@ -70,6 +85,15 @@ export const uploadProfileImage = multer({
 		fileSize: 2 * 1024 * 1024, // 2MB limit
 	},
 }).single('image');
+
+// Configure multer for payment proofs
+export const uploadPaymentProof = multer({
+	storage: paymentProofStorage,
+	fileFilter: imageFilter,
+	limits: {
+		fileSize: 3 * 1024 * 1024, // 3MB limit
+	},
+}).single('paymentProof');
 
 // General upload for any image
 export const uploadImage = multer({

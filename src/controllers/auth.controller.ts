@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { PrismaClient } from '../generated/prisma';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { AppError } from '../utils/app.error';
+import prisma from '../lib/prisma';
 
-const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
 // Add some basic logging for debugging
@@ -58,12 +57,15 @@ export class AuthController {
 	): Promise<void> {
 		try {
 			const { name, email, password, phone, referral, role } = req.body;
-			if (!email || !password || !role) {
-				throw new AppError('Email, password, and role are required.', 400);
+			if (!email || !password) {
+				throw new AppError('Email and password are required.', 400);
 			}
 
+			// Default role to 'customer' if not provided
+			const userRole = role || 'customer';
+
 			// Validate role - only allow 'customer' or 'organizer'
-			if (role !== 'customer' && role !== 'organizer') {
+			if (userRole !== 'customer' && userRole !== 'organizer') {
 				throw new AppError(
 					'Role must be either "customer" or "organizer".',
 					400
@@ -99,8 +101,9 @@ export class AuthController {
 					name,
 					email,
 					password: hashed,
-					role,
+					role: userRole,
 					referral_code: referralCode,
+					updated_at: new Date(),
 				};
 				if (referred_by_id) userData.referred_by_id = referred_by_id;
 
