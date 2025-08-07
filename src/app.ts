@@ -49,12 +49,6 @@ export default class App {
 
 		this.app.use(json());
 		this.app.use(urlencoded({ extended: true }));
-
-		// Serve static files from uploads directory
-		this.app.use(
-			'/uploads',
-			express.static(path.join(__dirname, '../uploads'))
-		);
 	}
 
 	private handleError(): void {
