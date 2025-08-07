@@ -406,4 +406,307 @@ export class ProfileController {
 			next(error);
 		}
 	}
+
+	// Get organizer profile with events, ratings, and reviews
+	static async getOrganizerProfile(
+		req: Request,
+		res: Response,
+		next: NextFunction
+	): Promise<void> {
+		try {
+			const organizerId = parseInt(req.params.organizerId);
+
+			if (!organizerId || isNaN(organizerId)) {
+				throw new AppError('Invalid organizer ID', 400);
+			}
+		// Fetch organizer user
+		const organizer = await prisma.users.findUnique({
+			where: {
+				id: organizerId,
+				role: 'organizer',
+			},
+				select: {
+					id: true,
+					name: true,
+					email: true,
+					profile_picture: true,
+					created_at: true,
+				},
+			});
+
+			if (!organizer) {
+				throw new AppError('Organizer not found', 404);
+			}
+
+			// Get organizer's events with review counts and ratings
+			const events = await prisma.events.findMany({
+				where: { organizer_id: organizerId },
+				include: {
+					reviews: {
+						select: {
+							id: true,
+							rating: true,
+							comment: true,
+							created_at: true,
+							users: {
+								select: {
+									id: true,
+									name: true,
+								},
+							},
+						},
+						orderBy: {
+							created_at: 'desc',
+						},
+					},
+					_count: {
+						select: {
+							reviews: true,
+							bookings: {
+								where: {
+									status: 'CONFIRMED',
+								},
+							},
+						},
+					},
+				},
+				orderBy: {
+					date: 'desc',
+				},
+			});
+
+			// Calculate overall statistics
+			let totalReviews = 0;
+			let totalRating = 0;
+			let totalEvents = events.length;
+			let totalAttendees = 0;
+			const ratingDistribution = [0, 0, 0, 0, 0]; // Index 0 = 1 star, Index 4 = 5 stars
+
+			events.forEach((event) => {
+				totalAttendees += event._count.bookings;
+				event.reviews.forEach((review) => {
+					totalReviews++;
+					totalRating += review.rating;
+					ratingDistribution[review.rating - 1]++;
+				});
+			});
+
+			const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+
+			// Get recent reviews across all events
+			const recentReviews = await prisma.reviews.findMany({
+				where: {
+					events: {
+						organizer_id: organizerId,
+					},
+				},
+				include: {
+					users: {
+						select: {
+							id: true,
+							name: true,
+						},
+					},
+					events: {
+						select: {
+							id: true,
+							title: true,
+						},
+					},
+				},
+				orderBy: {
+					created_at: 'desc',
+				},
+				take: 10,
+			});
+
+			// Format events data
+			const formattedEvents = events.map((event) => ({
+				id: event.id,
+				title: event.title,
+				description: event.description,
+				date: event.date,
+				location: event.location,
+				price: event.price,
+				currency: event.currency,
+				category: event.category,
+				image: event.image,
+				total_seats: event.total_seats,
+				available_seats: event.available_seats,
+				review_count: event._count.reviews,
+				attendee_count: event._count.bookings,
+				average_rating:
+					event.reviews.length > 0
+						? event.reviews.reduce((sum, review) => sum + review.rating, 0) /
+						  event.reviews.length
+						: 0,
+			}));
+
+			const profile = {
+				organizer: {
+					id: organizer.id,
+					name: organizer.name || 'Event Organizer',
+					email: organizer.email,
+					profile_picture: organizer.profile_picture,
+					member_since: organizer.created_at.toISOString(),
+				},
+				statistics: {
+					total_events: totalEvents,
+					total_reviews: totalReviews,
+					average_rating: averageRating,
+					total_attendees: totalAttendees,
+					rating_distribution: ratingDistribution,
+				},
+				events: formattedEvents,
+				recent_reviews: recentReviews.map((review) => ({
+					id: review.id,
+					rating: review.rating,
+					comment: review.comment,
+					created_at: review.created_at.toISOString(),
+					user: {
+						id: review.users.id,
+						name: review.users.name || 'Anonymous',
+					},
+					event: {
+						id: review.events.id,
+						title: review.events.title,
+					},
+				})),
+			};
+
+			res.json({
+				success: true,
+				data: profile,
+			});
+		} catch (error) {
+			next(error);
+		}
+	}
+
+	// Get list of organizers with basic info and ratings
+	static async getOrganizers(
+		req: Request,
+		res: Response,
+		next: NextFunction
+	): Promise<void> {
+		try {
+			const page = parseInt(req.query.page as string) || 1;
+			const limit = parseInt(req.query.limit as string) || 10;
+			const search = req.query.search as string || '';
+			const offset = (page - 1) * limit;
+		// Build where clause for search
+		const whereClause: any = {
+			role: 'organizer',
+		};
+
+			if (search) {
+				whereClause.OR = [
+					{
+						name: {
+							contains: search,
+							mode: 'insensitive',
+						},
+					},
+					{
+						email: {
+							contains: search,
+							mode: 'insensitive',
+						},
+					},
+				];
+			}
+
+			// Get organizers with event and review statistics
+			const organizers = await prisma.users.findMany({
+				where: whereClause,
+				select: {
+					id: true,
+					name: true,
+					email: true,
+					profile_picture: true,
+					created_at: true,
+					events: {
+						select: {
+							id: true,
+							title: true,
+							_count: {
+								select: {
+									reviews: true,
+									bookings: {
+										where: {
+											status: 'CONFIRMED',
+										},
+									},
+								},
+							},
+							reviews: {
+								select: {
+									rating: true,
+								},
+							},
+						},
+					},
+				},
+				skip: offset,
+				take: limit,
+				orderBy: {
+					created_at: 'desc',
+				},
+			});
+
+			// Calculate statistics for each organizer
+			const organizersWithStats = organizers.map((organizer) => {
+				let totalReviews = 0;
+				let totalRating = 0;
+				let totalEvents = organizer.events.length;
+				let totalAttendees = 0;
+
+				organizer.events.forEach((event) => {
+					totalAttendees += event._count.bookings;
+					totalReviews += event._count.reviews;
+					event.reviews.forEach((review) => {
+						totalRating += review.rating;
+					});
+				});
+
+				const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+
+				return {
+					id: organizer.id,
+					name: organizer.name || 'Event Organizer',
+					email: organizer.email,
+					profile_picture: organizer.profile_picture,
+					member_since: organizer.created_at.toISOString(),
+					statistics: {
+						total_events: totalEvents,
+						total_reviews: totalReviews,
+						average_rating: averageRating,
+						total_attendees: totalAttendees,
+					},
+				};
+			});
+
+			// Get total count for pagination
+			const totalCount = await prisma.users.count({
+				where: whereClause,
+			});
+
+			res.json({
+				success: true,
+				data: {
+					organizers: organizersWithStats,
+					pagination: {
+						page,
+						limit,
+						total: totalCount,
+						totalPages: Math.ceil(totalCount / limit),
+					},
+				},
+			});
+		} catch (error) {
+			next(error);
+		}
+	}
+
+	// ...existing methods...
 }

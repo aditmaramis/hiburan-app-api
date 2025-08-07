@@ -270,7 +270,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/adit/Documents/PURWADHIKA/hiburan-app/hiburan-app-api/src/generated/prisma",
+      "value": "/Users/fachrifatahlukman/Desktop/Purwadhika /Mini-project/hiburan-app-api/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -284,7 +284,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/adit/Documents/PURWADHIKA/hiburan-app/hiburan-app-api/prisma/schema.prisma",
+    "sourceFilePath": "/Users/fachrifatahlukman/Desktop/Purwadhika /Mini-project/hiburan-app-api/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -298,11 +298,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres.krewjrptncthbmunmpgc:biKvyq-2pixfy-qurtug@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres"
+        "value": null
       }
     }
   },

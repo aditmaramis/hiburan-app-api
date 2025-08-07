@@ -11,6 +11,12 @@ router.post('/reset-password-request', ProfileController.requestPasswordReset);
 // Reset password with token
 router.post('/reset-password', ProfileController.resetPassword);
 
+// Get list of organizers (public)
+router.get('/organizers', ProfileController.getOrganizers);
+
+// Get organizer profile by ID (public)
+router.get('/organizers/:organizerId', ProfileController.getOrganizerProfile);
+
 // Protected routes (authentication required)
 router.use(verifyToken);
 
