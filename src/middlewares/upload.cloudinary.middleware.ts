@@ -42,7 +42,7 @@ export const uploadPaymentProof = multer({
 	limits: {
 		fileSize: 3 * 1024 * 1024, // 3MB limit
 	},
-}).single('paymentProof');
+}).single('payment_proof');
 
 // Generic image upload
 export const uploadImage = multer({
