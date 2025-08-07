@@ -2,7 +2,6 @@ import { Router } from 'express';
 import {
 	createBooking,
 	submitPaymentProof,
-	uploadPaymentProof,
 	acceptPayment,
 	rejectPayment,
 	cancelBooking,
@@ -13,6 +12,7 @@ import {
 	processExpiredTransactions,
 } from '../controllers/enhanced-bookings.controller';
 import { verifyToken } from '../middlewares/auth.middleware';
+import { uploadPaymentProof } from '../middlewares/upload.cloudinary.middleware';
 
 const router = Router();
 

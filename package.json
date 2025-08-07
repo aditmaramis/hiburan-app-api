@@ -11,11 +11,12 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "build": "tsc",
+    "build": "npx tsc && prisma generate",
     "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "migrate:dev": "dotenv -e .env.development -- npx prisma migrate dev"
+    "migrate:dev": "dotenv -e .env.development -- npx prisma migrate dev",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",
